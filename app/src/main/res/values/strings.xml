@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Investgate</string>
+    <string name="host">http://google.com/</string>
 </resources>
