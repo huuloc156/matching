@@ -104,7 +104,7 @@ public class RecyclerViewHeaderFooterAdapter extends RecyclerView.Adapter {
                 layoutParams1.setFullSpan(true);
                 layoutParams = layoutParams1;
             }else{
-                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
             //create a new framelayout, or inflate from a resource
             FrameLayout frameLayout = new FrameLayout(viewGroup.getContext());

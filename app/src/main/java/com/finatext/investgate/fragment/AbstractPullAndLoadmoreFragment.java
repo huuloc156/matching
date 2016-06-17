@@ -208,7 +208,7 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
         }
     }
     protected void hideFooter() {
-        mFooterLoadMore.findViewById(R.id.progressBarLoadmore).setVisibility(View.GONE);
+        mFooterLoadMore.findViewById(R.id.progressBarLoadmore).setVisibility(View.INVISIBLE);
     }
     protected void showFooter() {
         mFooterLoadMore.findViewById(R.id.progressBarLoadmore).setVisibility(View.VISIBLE);
