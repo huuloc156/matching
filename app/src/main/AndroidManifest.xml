@@ -45,6 +45,15 @@
             android:name=".activity.login.RegistrationActivity" >
         </activity>
         <activity
+            android:name=".activity.login.SelectAccountTypeActivity" >
+        </activity>
+        <activity
+            android:name=".activity.login.AddAccountDetailActivity" >
+        </activity>
+        <activity
+            android:name=".activity.login.TutorialActivity" >
+        </activity>
+        <activity
             android:theme="@style/MainActivityTheme"
             android:name=".activity.login.FirstStartActivity" >
         </activity>
