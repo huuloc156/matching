@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bg_blue">#00a0ff</color>
+    <color name="background">#f8f7fa</color>
+    <color name="white">#ffffff</color>
+    <color name="tab_normal_color">#f7f7f7</color>
+    <color name="bg_white">#ffffff</color>
 </resources>

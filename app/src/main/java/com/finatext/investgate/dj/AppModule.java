@@ -6,6 +6,8 @@ import android.content.Context;
 import com.finatext.investgate.R;
 import com.finatext.investgate.data.SharePreferenceData;
 import com.finatext.investgate.data.api.InvestgateApi;
+import com.squareup.otto.Bus;
+import com.squareup.otto.ThreadEnforcer;
 
 import javax.inject.Singleton;
 
@@ -46,6 +48,12 @@ public class AppModule {
     @Provides
     SharePreferenceData provideSharePreferenceData(Context context){
         return new SharePreferenceData(context);
+    }
+
+    @Singleton
+    @Provides
+    Bus provideBus(){
+        return new Bus(ThreadEnforcer.MAIN);
     }
 
 
