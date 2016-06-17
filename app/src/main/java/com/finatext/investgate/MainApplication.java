@@ -9,6 +9,7 @@ import com.finatext.investgate.dj.AppModule;
 import com.finatext.investgate.dj.DaggerAppComponent;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 /**
  * Created by lenam on 6/10/16.
@@ -21,6 +22,12 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+        else{
+//            Timber.plant(null);
+        }
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();

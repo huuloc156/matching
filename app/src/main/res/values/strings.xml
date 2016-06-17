@@ -3,4 +3,5 @@
     <string name="host">http://google.com/</string>
     <string name="dialog_network_error_msg">ネットワークエラーが発生しました。しばらく経ってからお試してください。</string>
     <string name="search_hint_default" />
+    <string name="empty_message">TODO empty message</string>
 </resources>
