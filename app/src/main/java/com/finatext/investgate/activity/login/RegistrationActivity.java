@@ -10,6 +10,7 @@ import com.finatext.investgate.activity.BaseActivity;
 import com.finatext.investgate.activity.MainActivity;
 import com.finatext.investgate.data.api.ApiSubscriber;
 import com.finatext.investgate.data.api.dto.ObjectDto;
+import com.finatext.investgate.data.api.dto.login.RegistrationItem;
 import com.finatext.investgate.utils.ToastUtils;
 
 import butterknife.BindView;
