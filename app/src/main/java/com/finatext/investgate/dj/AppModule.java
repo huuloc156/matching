@@ -3,6 +3,7 @@ package com.finatext.investgate.dj;
 import android.app.Application;
 import android.content.Context;
 
+import com.finatext.investgate.BuildConfig;
 import com.finatext.investgate.R;
 import com.finatext.investgate.data.SharePreferenceData;
 import com.finatext.investgate.data.api.InvestgateApi;
@@ -13,6 +14,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -37,13 +40,27 @@ public class AppModule {
         return application.getApplicationContext();
     }
 
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if(BuildConfig.DEBUG) {
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            // Can be Level.BASIC, Level.HEADERS, or Level.BODY
+            // See http://square.github.io/okhttp/3.x/logging-interceptor/ to see the options.
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.networkInterceptors().add(httpLoggingInterceptor);
+        }
+        return builder.build();
+    }
     @Singleton
     @Provides
-    InvestgateApi provideInvestgateApi() {
+    InvestgateApi provideInvestgateApi(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(mHost)
+                .client(okHttpClient)
                 .build();
         return retrofit.create(InvestgateApi.class);
     }
