@@ -34,7 +34,7 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
         RecyclerArrayViewHolder.OnItemRecyclerClick,SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.recyclerview)
-    RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
     private RecyclerViewHeaderFooterAdapter mRecyclerViewHeaderFooterAdapter;
     private View mFooterLoadMore;
     EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
