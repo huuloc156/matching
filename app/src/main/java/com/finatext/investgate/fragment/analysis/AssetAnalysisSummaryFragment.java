@@ -13,15 +13,15 @@ import butterknife.OnClick;
 /**
  * Created by apple on 6/20/16.
  */
-public class AssetAnalysisHomeFragment extends BaseFragment {
+public class AssetAnalysisSummaryFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_asset_analysis_home, container, false);
+        return inflater.inflate(R.layout.fragment_asset_analysis_summary, container, false);
     }
-    @OnClick(R.id.btn_summary)
+    @OnClick(R.id.tv_summary_detail)
     void clickAssetAnalysis(){
-        startFragment(new AssetAnalysisSummaryFragment(),true);
+        startFragment(new AssetAnalysisSummaryDetailFragment(),true);
     }
 }
