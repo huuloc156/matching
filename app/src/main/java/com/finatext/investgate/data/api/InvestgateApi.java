@@ -15,7 +15,7 @@ import rx.Observable;
 public interface InvestgateApi {
 
     @FormUrlEncoded
-    @POST("/api/v1/users")
+    @POST("/api/v1/users.json")
     Observable<ObjectDto<RegistrationItem>> signUpMail(@Field("email") String email,
                                                        @Field("password") String password,
                                                        @Field("password_confirmation") String password_confirmation);
