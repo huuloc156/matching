@@ -71,6 +71,7 @@
             android:name="io.fabric.ApiKey"
             android:value="TODOXXXX" />
 
+        <activity android:name=".activity.login.LoginActivity"></activity>
     </application>
 
 </manifest>
