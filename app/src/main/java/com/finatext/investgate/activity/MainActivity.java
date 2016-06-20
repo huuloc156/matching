@@ -16,9 +16,12 @@ import android.widget.TextView;
 import com.finatext.investgate.R;
 import com.finatext.investgate.fragment.BaseFragment;
 import com.finatext.investgate.fragment.TabFragment;
+import com.finatext.investgate.fragment.analysis.AssetAnalysisHomeFragment;
 import com.finatext.investgate.fragment.events.OnSearchEvent;
 import com.finatext.investgate.fragment.header.IHeaderInfo;
 import com.finatext.investgate.fragment.header.IHeaderStateChange;
+import com.finatext.investgate.fragment.position.ListPositionHomeFragment;
+import com.finatext.investgate.fragment.summary.SummaryHomeFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,10 +62,11 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
     @Override
     protected void initTabs() {
         //TODO setup your tab
-        setupTab("Tab1", "Tab1", R.mipmap.ic_launcher, BaseFragment.class);
-        setupTab("Tab2", "Tab2", R.mipmap.ic_launcher, BaseFragment.class);
-        setupTab("Tab3", "Tab3", R.mipmap.ic_launcher, BaseFragment.class);
-        setupTab("Tab4", "Tab4", R.mipmap.ic_launcher, BaseFragment.class);
+        setupTab("Tab1", "手数料分析", R.mipmap.ic_launcher, SummaryHomeFragment.class);
+        setupTab("Tab2", "資産分析", R.mipmap.ic_launcher, AssetAnalysisHomeFragment.class);
+        setupTab("Tab3", "ポジション一覧", R.mipmap.ic_launcher, ListPositionHomeFragment.class);
+        setupTab("Tab4", "情報", R.mipmap.ic_launcher, BaseFragment.class);
+        setupTab("Tab5", "マイページ", R.mipmap.ic_launcher, BaseFragment.class);
     }
 
     //////////////////////////
