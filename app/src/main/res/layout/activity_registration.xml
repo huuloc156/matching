@@ -35,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="Password"/>
 
         <EditText
             android:id="@+id/edt_password_confirmation"
@@ -44,8 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="Confirm password"
-            android:inputType="textPassword" />
+            android:hint="Confirm password" />
 
     </LinearLayout>
 
