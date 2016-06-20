@@ -9,6 +9,7 @@ import com.finatext.investgate.activity.BaseActivity;
 import com.finatext.investgate.data.api.dto.login.GetLoginData;
 import com.finatext.investgate.data.api.ApiSubscriber;
 import com.finatext.investgate.data.api.dto.ObjectDto;
+import com.finatext.investgate.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,6 +32,30 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btnLogin)
+    public void loginActivity()
+    {
+        boolean check=true;
+        if(password.getText().toString().length()<6 )
+        {
+            ToastUtils.show(LoginActivity.this, "Password is too short");
+            check=false;
+        }
+        if(password.getText().toString().length()>12 )
+        {
+            ToastUtils.show(LoginActivity.this, "Password is too long");
+            check=false;
+        }
+        if( !android.util.Patterns.EMAIL_ADDRESS.matcher(username.getText().toString()).matches())
+        {
+            ToastUtils.show(LoginActivity.this, "Wrong email");
+            check=false;
+        }
+        if(check) {
+            callApiRegistration();
+        }
+
+    }
+
     public void callApiRegistration() {
         showProgressDialog();
 
@@ -50,7 +75,13 @@ public class LoginActivity extends BaseActivity {
                 GetLoginData data = registrationItemObjectDto.data;
                 sharePreferenceData.setUserToken(data.token);
                 sharePreferenceData.setUserId(data.user_id);
+                ToastUtils.show(LoginActivity.this,"ok");
                 //TODO xu ly logic thanh cong
+            }
+
+            @Override
+            public void onCompleted() {
+                closeDialog();
             }
         });
     }

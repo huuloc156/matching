@@ -21,7 +21,7 @@ public interface InvestgateApi {
                                                        @Field("password") String password,
                                                        @Field("password_confirmation") String password_confirmation);
     @FormUrlEncoded
-    @POST("/api/v1/login")
+    @POST("/api/v1/login.json")
     Observable<ObjectDto<GetLoginData>> loginActivity(@Field("email") String email,
                                                    @Field("password") String password);
 

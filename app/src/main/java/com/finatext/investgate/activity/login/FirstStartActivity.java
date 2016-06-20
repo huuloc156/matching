@@ -21,4 +21,8 @@ public class FirstStartActivity extends BaseActivity {
     public void clickStart(){
         startActivity(new Intent(this,RegistrationActivity.class));
     }
+    @OnClick(R.id.btn_login)
+    public void clickLogin(){
+        startActivity(new Intent(this,LoginActivity.class));
+    }
 }
