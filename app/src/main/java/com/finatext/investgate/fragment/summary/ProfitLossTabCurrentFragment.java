@@ -1,5 +1,6 @@
 package com.finatext.investgate.fragment.summary;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,14 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
                 if(page <=3) {
                     for (int i = 0; i < 20; i++) {
 //                        items.add("item page " + page + "  order" + i);
-                        items.add(new ProfitLossItem());
+                        ProfitLossItem temp= new ProfitLossItem();
+                        temp.status="sta"+i;
+                        temp.companyname="  cong ty"+i+"  ";
+                        temp.type="  type"+i+"  ";
+                        temp.name="Name"+i;
+                        temp.position_pl="+435...";
+                        temp.datetime="2016/05/01 23:09";
+                        items.add(temp);
                     }
                 }
                 //step2 notify loaded data
@@ -82,12 +90,52 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         public void onBindViewHolder(ProfitLossViewHolder holder, int position) {
             ProfitLossItem item = getItem(position);
 //            holder.tvUserName.setText(item);
+            holder.txtvType.setTextColor(Color.parseColor("#ffffff"));
+            holder.txtvCompanyName.setTextColor(Color.parseColor("#ffffff"));
+            if(position%4==0)
+            {
+                holder.txtvType.setBackgroundResource(R.drawable.background_1);
+                holder.txtvCompanyName.setBackgroundResource(R.drawable.background_1);
+            }
+            if(position%4==1)
+            {
+                holder.txtvType.setBackgroundResource(R.drawable.background_2);
+                holder.txtvCompanyName.setBackgroundResource(R.drawable.background_2);
+            }
+            if(position%4==2)
+            {
+                holder.txtvType.setBackgroundResource(R.drawable.background_3);
+                holder.txtvCompanyName.setBackgroundResource(R.drawable.background_3);
+            }
+            if(position%4==3)
+            {
+                holder.txtvType.setBackgroundResource(R.drawable.background_4);
+                holder.txtvCompanyName.setBackgroundResource(R.drawable.background_4);
+            }
+              holder.txtvStatus.setText(item.status);
+              holder.txtvName.setText(item.name);
+              holder.txtvCompanyName.setText(item.companyname);
+              holder.txtvType.setText(item.type);
+              holder.txtvPositionPl.setText(item.position_pl);
+              holder.txtvCloseDate.setText(item.datetime);
         }
 
     }
     static class ProfitLossViewHolder extends RecyclerArrayViewHolder {
 //        @BindView(android.R.id.text1)
 //        TextView tvUserName;
+        @BindView(R.id.txtvstatus)
+        TextView txtvStatus;
+        @BindView(R.id.txtvname)
+        TextView txtvName;
+        @BindView(R.id.txtvtype)
+        TextView txtvType;
+        @BindView(R.id.txtvcompanyname)
+        TextView txtvCompanyName;
+        @BindView(R.id.txtv_position_pl)
+        TextView txtvPositionPl;
+        @BindView(R.id.txtv_close_date_time)
+        TextView txtvCloseDate;
         public ProfitLossViewHolder(View itemView, OnItemRecyclerClick onItemRecyclerClick) {
             super(itemView,onItemRecyclerClick);
             ButterKnife.bind(this, itemView);
