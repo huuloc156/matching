@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import com.finatext.investgate.R;
 import com.finatext.investgate.fragment.AbstractSwipeFragment;
@@ -18,4 +19,8 @@ public class ProfitLossSwipeFragment extends AbstractSwipeFragment {
         addFragment("実現損益", new ProfitLossTabCurrentFragment());
         addFragment("年間の累計損益", new ProfitLossTabYearFragment());
     }
+
+
+
+
 }

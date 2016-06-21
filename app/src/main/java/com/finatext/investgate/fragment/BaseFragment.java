@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.SeekBar;
 
 import com.finatext.investgate.MainApplication;
 import com.finatext.investgate.R;
@@ -32,7 +33,7 @@ import timber.log.Timber;
  * Created by lenam on 6/10/16.
  */
 
-public class BaseFragment extends Fragment implements OnBackPressListener,IHeaderInfo {
+public abstract class BaseFragment extends Fragment implements OnBackPressListener,IHeaderInfo {
 
     @Inject
     SharePreferenceData preferenceData;
@@ -274,4 +275,6 @@ public class BaseFragment extends Fragment implements OnBackPressListener,IHeade
     public boolean onBackPress() {
         return false;
     }
+
+
 }

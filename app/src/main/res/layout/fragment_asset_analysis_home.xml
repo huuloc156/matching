@@ -23,10 +23,10 @@
         android:text="昨日から+2,394円産"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <TextView
+    <com.github.mikephil.charting.charts.BarChart
         android:layout_margin="8dp"
         android:gravity="center"
-        android:text="Your chart"
+        android:id="@+id/barChart"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
