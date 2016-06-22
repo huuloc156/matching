@@ -20,6 +20,8 @@ import com.finatext.investgate.fragment.analysis.AssetAnalysisHomeFragment;
 import com.finatext.investgate.fragment.events.OnSearchEvent;
 import com.finatext.investgate.fragment.header.IHeaderInfo;
 import com.finatext.investgate.fragment.header.IHeaderStateChange;
+import com.finatext.investgate.fragment.mypage.MyPageHomeFragment;
+import com.finatext.investgate.fragment.news.NewsHomeFragment;
 import com.finatext.investgate.fragment.position.ListPositionHomeFragment;
 import com.finatext.investgate.fragment.summary.SummaryHomeFragment;
 
@@ -65,8 +67,8 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
         setupTab("Tab1", "手数料分析", R.mipmap.ic_launcher, SummaryHomeFragment.class);
         setupTab("Tab2", "資産分析", R.mipmap.ic_launcher, AssetAnalysisHomeFragment.class);
         setupTab("Tab3", "ポジション一覧", R.mipmap.ic_launcher, ListPositionHomeFragment.class);
-        setupTab("Tab4", "情報", R.mipmap.ic_launcher, BaseFragment.class);
-        setupTab("Tab5", "マイページ", R.mipmap.ic_launcher, BaseFragment.class);
+        setupTab("Tab4", "情報", R.mipmap.ic_launcher, NewsHomeFragment.class);
+        setupTab("Tab5", "マイページ", R.mipmap.ic_launcher, MyPageHomeFragment.class);
     }
 
     //////////////////////////
