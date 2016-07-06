@@ -49,8 +49,8 @@ public abstract class ApiSubscriber<T extends BaseApiDto> extends Subscriber<T> 
                 showUpdateFailedDialog(context);
             }
         }else {
-            //log to Crashlytics
-            Crashlytics.logException(e);
+            //log to Crashlytics TODO
+//            Crashlytics.logException(e);
             if(isShowErrorDialog) {
                 showUpdateFailedDialog(context,"エラーが発生しました。\nしばらくしてから再度お試して下さい。");
             }
