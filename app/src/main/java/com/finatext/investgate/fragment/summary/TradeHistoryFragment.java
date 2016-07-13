@@ -1,21 +1,16 @@
 package com.finatext.investgate.fragment.summary;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.finatext.investgate.R;
-import com.finatext.investgate.fragment.BaseFragment;
+import com.finatext.investgate.fragment.AbstrackSwipeFragmentCustom;
 
 /**
  * Created by apple on 6/20/16.
  */
-public class TradeHistoryFragment extends BaseFragment {
+public class TradeHistoryFragment extends AbstrackSwipeFragmentCustom {
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_summary_trade_history, container, false);
+    protected void initPagerFragment() {
+        addFragment("A", new TradeHistoryFragmentStock());
+        addFragment("B", new TradeHistoryFragmentFx());
+        addFragment("C", new TradeHistoryFragmentTrust());
     }
 }

@@ -14,4 +14,7 @@
     <color name="background_2">#34b2e5</color>
     <color name="background_3">#ef9c5a</color>
     <color name="background_4">#e96d50</color>
+    <color name="circle1">#ed6b56</color>
+    <color name="circle2">#2eb6e1</color>
+    <color name="circle3">#f2ac81</color>
 </resources>

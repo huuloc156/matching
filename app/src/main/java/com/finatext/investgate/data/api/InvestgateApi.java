@@ -1,12 +1,19 @@
 package com.finatext.investgate.data.api;
 
-import com.finatext.investgate.data.api.dto.login.RegistrationItem;
-import com.finatext.investgate.data.api.dto.login.GetLoginData;
+import com.finatext.investgate.data.api.dto.ListDto;
 import com.finatext.investgate.data.api.dto.ObjectDto;
+import com.finatext.investgate.data.api.dto.login.GetLoginData;
+import com.finatext.investgate.data.api.dto.login.RegistrationItem;
+import com.finatext.investgate.data.api.dto.summary.ProfitLossItem;
+import com.finatext.investgate.data.api.dto.summary.ProfitLossYearItem;
+import com.finatext.investgate.data.api.dto.summary.TradeDto;
+import com.finatext.investgate.data.api.dto.summary.TradeHistoryItem;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -25,4 +32,17 @@ public interface InvestgateApi {
     Observable<ObjectDto<GetLoginData>> loginActivity(@Field("email") String email,
                                                    @Field("password") String password);
 
+
+    @GET("/api/v1/daily_trade_summary.json")
+    Observable<ObjectDto<TradeDto>> getTradeSummary();
+
+
+    @GET("/api/v1/yearly_pl.json")
+    Observable<ListDto<ProfitLossItem>> getTradeSummaryYear();
+
+    @GET("/api/v1/daily_pl_summary.json")
+    Observable<ListDto<ProfitLossYearItem>> getDailyPLSummary(@Query("page") int page);
+
+    @GET("/api/v1/daily_trade_list.json")
+    Observable<ListDto<TradeHistoryItem>> getDailyTradeList(@Query("page") int page, @Query("gate_type") String type);
 }

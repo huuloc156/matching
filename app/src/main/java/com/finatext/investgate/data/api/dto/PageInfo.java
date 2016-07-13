@@ -12,4 +12,10 @@ public class PageInfo {
     public int lastPage;
     @SerializedName("total_items")
     public int totalItems;
+    @SerializedName("sum_all")
+    public int sum_all;
+    @SerializedName("sum_stock")
+    public int sum_stock;
+    @SerializedName("sum_fx")
+    public int sum_fx;
 }

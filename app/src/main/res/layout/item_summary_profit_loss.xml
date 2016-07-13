@@ -2,67 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_content">
+        <include layout="@layout/include_recycleview_header"/>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/txtvname"
+        android:id="@+id/txt_profit_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:text="name"
+        android:layout_centerVertical="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/gray_name"
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/txtvstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="29dp"
-        android:text="status"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/txtvtype"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtvname"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/txtvname"
-        android:layout_marginTop="10dp"
-        android:text="type"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="11sp" />
-
-    <TextView
-        android:id="@+id/txtvcompanyname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtvtype"
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/txtvtype"
-        android:layout_toRightOf="@+id/txtvtype"
-        android:text="company name"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="11sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtvname"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:text="+435..."
+        android:layout_below="@+id/txt_profit_close_date_time"
+        android:text="+435円"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/gray_name"
         android:textSize="30sp"
-        android:id="@+id/txtv_position_pl"/>
+        android:id="@+id/txt_profit_money_pl"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,10 +44,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="date time"
         android:layout_marginRight="20dp"
-        android:id="@+id/txtv_close_date_time"
+        android:id="@+id/txt_profit_close_date_time"
         android:textColor="@color/gray_name"
-        android:layout_alignTop="@+id/txtvcompanyname"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/ll_content"
         android:layout_alignParentEnd="true"
         android:textSize="11sp"/>
 

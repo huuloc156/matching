@@ -42,7 +42,7 @@ public class SharePreferenceData {
     }
 
     public void setUserToken(String userToken) {
-        setString(KEY_IDENTIFY_USER,userToken);
+        setString(KEY_USER_TOKEN,userToken);
     }
 
 
