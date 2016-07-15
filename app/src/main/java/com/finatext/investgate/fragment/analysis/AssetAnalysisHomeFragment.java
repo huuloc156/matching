@@ -49,6 +49,9 @@ public class AssetAnalysisHomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+    }
+
+    public void drawChart() {
         mChart.setDescription("");
 
         // if more than 60 entries are displayed in the chart, no values will be
@@ -82,11 +85,10 @@ public class AssetAnalysisHomeFragment extends BaseFragment {
         l.setFormToTextSpace(4f);
         l.setXEntrySpace(6f);
 
-         onProgressChanged();
+        setData();
     }
 
-
-    public void onProgressChanged() {
+    public void setData() {
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < 3; i++) {

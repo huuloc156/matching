@@ -14,6 +14,7 @@
         android:layout_margin="8dp"
         android:textSize="20sp"
         android:gravity="center"
+        android:id="@+id/overall_assets"
         android:text="1,122,588円"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -21,6 +22,7 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:text="昨日から+2,394円産"
+        android:id="@+id/diff_with_yesterday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <com.github.mikephil.charting.charts.BarChart
