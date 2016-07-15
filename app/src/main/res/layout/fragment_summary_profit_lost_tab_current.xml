@@ -4,8 +4,76 @@
     android:layout_height="match_parent">
     <TextView
         android:gravity="center"
-        android:text="your chart"
+        android:text="+12,345円"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:textSize="35sp"
+        android:layout_height="100dp"
+        android:textColor="@color/background_4"
+        android:id="@+id/txt_profit_sum_all"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:gravity="center"
+        android:layout_margin="20dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kaku"
+                android:textSize="14sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:textSize="30sp"
+                android:id="@+id/txt_profit_kabu_pl"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FX"
+                android:textSize="14sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:textSize="30sp"
+                android:id="@+id/txt_profit_fx_pl"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="trust"
+                android:textSize="14sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123"
+                android:textSize="30sp"
+                android:id="@+id/txt_profit_trust_pl"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
     <include layout="@layout/fragment_pull_to_refresh_load_more"/>
 </LinearLayout>

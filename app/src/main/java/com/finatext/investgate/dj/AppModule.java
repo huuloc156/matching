@@ -79,7 +79,7 @@ public class AppModule {
                 newBuilder.addHeader("X-Investgate-Client-Device-ID", android_id);
                 newBuilder.addHeader("X-Investgate-Client-App-Version", versionName);
                 //session
-                newBuilder.addHeader("X-Investgate-Token",preferenceData.getUserToken());
+                newBuilder.addHeader("X-Investgate-Token", preferenceData.getUserToken());
                 return chain.proceed(newBuilder.build());
             }
         };

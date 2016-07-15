@@ -1,5 +1,6 @@
 package com.finatext.investgate.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.SeekBar;
 
 import com.finatext.investgate.MainApplication;
 import com.finatext.investgate.R;
 import com.finatext.investgate.activity.BaseActivity;
-import com.finatext.investgate.activity.MainActivity;
 import com.finatext.investgate.data.SharePreferenceData;
 import com.finatext.investgate.data.api.InvestgateApi;
 import com.finatext.investgate.dj.AppComponent;
@@ -38,7 +37,7 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
     @Inject
     SharePreferenceData preferenceData;
     @Inject
-    InvestgateApi investgateApi;
+    protected InvestgateApi investgateApi;
     protected int mContainerId = R.id.frame_tab_content2;
     @Inject
     Bus mBus;
@@ -52,6 +51,12 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
         AppComponent appComponent = ((MainApplication) getActivity().getApplicationContext()).getAppComponent();
         appComponent.inject(this);
         mBus.register(this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        baseActivity = (BaseActivity)context;
     }
 
     @Override

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.finatext.investgate.R;
 import com.finatext.investgate.adapter.DividerDecoration;
 import com.finatext.investgate.adapter.EndlessRecyclerOnScrollListener;
@@ -39,6 +38,7 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
     private View mFooterLoadMore;
     EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
     protected boolean isGrid;
+    protected boolean isHaveDivider= true;
 
     public AbstractPullAndLoadmoreFragment() {
         // Required empty public constructor
@@ -98,8 +98,11 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
         return 3;
     }
 
+    protected  void setDivider(boolean ishavedivider){
+        isHaveDivider = ishavedivider;
+    }
     protected boolean isHaveDivider() {
-        return true;
+        return isHaveDivider;
     }
 
     @NonNull
