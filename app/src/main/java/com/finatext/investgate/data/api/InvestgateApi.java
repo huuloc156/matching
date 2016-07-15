@@ -7,7 +7,9 @@ import com.finatext.investgate.data.api.dto.login.RegistrationItem;
 import com.finatext.investgate.data.api.dto.summary.ProfitLossItem;
 import com.finatext.investgate.data.api.dto.summary.ProfitLossYearItem;
 import com.finatext.investgate.data.api.dto.summary.TradeDto;
+import com.finatext.investgate.data.api.dto.summary.TradeEach;
 import com.finatext.investgate.data.api.dto.summary.TradeHistoryItem;
+import com.finatext.investgate.data.api.dto.summary.TradeSummaryItem;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -34,7 +36,7 @@ public interface InvestgateApi {
 
 
     @GET("/api/v1/daily_trade_summary.json")
-    Observable<ObjectDto<TradeDto>> getTradeSummary();
+    Observable<ObjectDto<TradeDto<TradeSummaryItem>>> getTradeSummary();
 
 
     @GET("/api/v1/yearly_pl.json")
@@ -45,4 +47,7 @@ public interface InvestgateApi {
 
     @GET("/api/v1/daily_trade_list.json")
     Observable<ListDto<TradeHistoryItem>> getDailyTradeList(@Query("page") int page, @Query("gate_type") String type);
+
+    @GET("/api/v1/each_trade.json")
+    Observable<ObjectDto<TradeDto<TradeEach>>> getEachTrade(@Query("stock_trade_id") int page);
 }

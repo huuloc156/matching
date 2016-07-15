@@ -55,23 +55,23 @@ public class SummaryHomeFragment extends BaseFragment {
     }
     @OnClick(R.id.ln_history)
     void clickTradeHistory(){
-        startFragment(new TradeHistoryFragment(),true);
+        startFragment(new TradeHistoryFragmentAbstractSwipeFragment(),true);
     }
 
 
 
 
     public void callApiTradeSummary() {
-        Observable<ObjectDto<TradeDto>> objectDtoObservable = investgateApi.getTradeSummary();
-        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto>>(this.getActivity(), true) {
+        Observable<ObjectDto<TradeDto<TradeSummaryItem>>> objectDtoObservable = investgateApi.getTradeSummary();
+        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto<TradeSummaryItem>>>(this.getActivity(), true) {
             @Override
-            protected void onDataError(ObjectDto<TradeDto> tradeSummaryItemListDto) {
+            protected void onDataError(ObjectDto<TradeDto<TradeSummaryItem>> tradeSummaryItemListDto) {
 
             }
 
             @Override
-            public void onDataSuccess(ObjectDto<TradeDto> tradeSummaryItemListDto) {
-                item = tradeSummaryItemListDto.data.tradesummary;
+            public void onDataSuccess(ObjectDto<TradeDto<TradeSummaryItem>> tradeSummaryItemListDto) {
+                item = tradeSummaryItemListDto.data.ValueData;
                 txtSummary.setText(item.daily_commission+"円");
                 txtHistory.setText(item.daily_profit_loss+"円");
             }

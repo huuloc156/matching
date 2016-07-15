@@ -1,11 +1,11 @@
 package com.finatext.investgate.fragment.summary;
 
-import com.finatext.investgate.fragment.AbstrackSwipeFragmentCustom;
+import com.finatext.investgate.fragment.CustomAbstractSwipeFragment;
 
 /**
  * Created by apple on 6/20/16.
  */
-public class TradeHistoryFragment extends AbstrackSwipeFragmentCustom {
+public class TradeHistoryFragmentAbstractSwipeFragment extends CustomAbstractSwipeFragment {
 
     @Override
     protected void initPagerFragment() {

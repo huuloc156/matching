@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public abstract class AbstrackSwipeFragmentCustom extends BaseFragment{
+public abstract class CustomAbstractSwipeFragment extends BaseFragment{
 
     @BindView(R.id.pager_swipe_custom)
     ViewPager mViewPager;
@@ -29,7 +29,7 @@ public abstract class AbstrackSwipeFragmentCustom extends BaseFragment{
     List<Button> listButton = new ArrayList<Button>();
     AbstractSwipeFragment.SectionsPagerAdapter mSectionsPagerAdapter;
 
-    public AbstrackSwipeFragmentCustom(){
+    public CustomAbstractSwipeFragment(){
 
     }
     @Override
