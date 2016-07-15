@@ -4,4 +4,8 @@
     <string name="dialog_network_error_msg">ネットワークエラーが発生しました。しばらく経ってからお試してください。</string>
     <string name="search_hint_default" />
     <string name="empty_message">TODO empty message</string>
+    <string name="header_home_summary">あなたの取引分析</string>
+    <string name="header_profit_loss">損益分析</string>
+    <string name="header_history">取引履歴</string>
+    <string name="header_history_detail">日別取引分析</string>
 </resources>

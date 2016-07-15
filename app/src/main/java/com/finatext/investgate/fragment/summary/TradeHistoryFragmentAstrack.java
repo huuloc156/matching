@@ -46,7 +46,7 @@ public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment
     }
     @Override
     public void onItemClick(View view, int position) {
-        startFragment(new TradeHistoryDetailFragment(),true);
+//        startFragment(new TradeHistoryDetailFragment(),true);
     }
     @Override
     protected void loadData(final int page) {

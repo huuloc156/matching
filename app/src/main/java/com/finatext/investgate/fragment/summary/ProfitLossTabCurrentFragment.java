@@ -53,7 +53,11 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
             setValue(DataItemAttr);
         }
     }
-
+    @Override
+    public void onClickHeaderRightButton(View view) {
+        super.onClickHeaderRightButton(view);
+        onRefresh();
+    }
     ProfitLossAdapter mAdapter;
 
     @Override
@@ -141,11 +145,13 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         public void onBindViewHolder(ProfitLossViewHolder holderItem, int position) {
             ProfitLossItem item = getItem(position);
                 if(item.type == "stock") {
-                    holderItem.txtProfitName.setText("Stock");
+                    holderItem.txtProfitName.setText("投信");
                 }else if(item.type == "fx"){
                     holderItem.txtProfitName.setText("FX");
+                }else if(item.type == "trust"){
+                    holderItem.txtProfitName.setText("投信");
                 }else{
-                    holderItem.txtProfitName.setText("other");
+                        holderItem.txtProfitName.setText("other");
                 }
                 holderItem.txtProfitMoney.setText(item.position_pl);
                 holderItem.txtCloseDate.setText(item.datetime);

@@ -1,6 +1,7 @@
 package com.finatext.investgate.fragment.summary;
 
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.finatext.investgate.data.api.ApiSubscriber;
@@ -22,21 +23,34 @@ public class TradeHistoryFragmentStock extends TradeHistoryFragmentAstrack {
     @Override
     public void onItemClick(View view, int position) {
         super.onItemClick(view, position);
+        setRefreshing(true);
+
         ProfitLossYearItem item = mAdapter.getItem(position);
         int id = 1463;
         Observable<ObjectDto<TradeDto<TradeEach>>> objectDtoObservable = investgateApi.getEachTrade(id);
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto<TradeEach>>>(this.getActivity(), true) {
             @Override
             protected void onDataError(ObjectDto<TradeDto<TradeEach>> tradeSummaryItemListDto) {
-                notifyLoadFail(1);
+                setRefreshing(false);
             }
 
             @Override
             public void onDataSuccess(ObjectDto<TradeDto<TradeEach>> Items) {
-//                TradeEach item = Items.data.ValueData;
-//                android.support.v4.app.Fragment fragment = new TradeHistoryDetailFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("MyData", item);
+                setRefreshing(false);
+//                TradeEach item = Items.data.valueData;
+                TradeEach item = new TradeEach();
+                item.commission_fee = 789;
+                item.type = "投信";
+                item.name = "日産自動車";
+                item.date = "dddd";
+                item.trading_volumne = 123;
+                item.interest = 456;
+
+                android.support.v4.app.Fragment fragment = new TradeHistoryDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("TradeEachData", item);
+                fragment.setArguments(bundle);
+                startFragment(fragment,true);
             }
         });
     }

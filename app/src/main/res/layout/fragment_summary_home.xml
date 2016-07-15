@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123円"
+            android:text=""
             android:id="@+id/tv_summary_value"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123円"
+            android:text=""
             android:id="@+id/tv_hisotry_value"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

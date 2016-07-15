@@ -9,8 +9,8 @@ public class TradeHistoryFragmentAbstractSwipeFragment extends CustomAbstractSwi
 
     @Override
     protected void initPagerFragment() {
-        addFragment("A", new TradeHistoryFragmentStock());
-        addFragment("B", new TradeHistoryFragmentFx());
-        addFragment("C", new TradeHistoryFragmentTrust());
+        addFragment("株式", new TradeHistoryFragmentStock());
+        addFragment("FX", new TradeHistoryFragmentFx());
+        addFragment("投信", new TradeHistoryFragmentTrust());
     }
 }

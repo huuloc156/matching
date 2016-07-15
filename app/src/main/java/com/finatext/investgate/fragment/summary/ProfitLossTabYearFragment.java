@@ -46,7 +46,11 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
         }
         return mAdapter;
     }
-
+    @Override
+    public void onClickHeaderRightButton(View view) {
+        super.onClickHeaderRightButton(view);
+        onRefresh();
+    }
     @Override
     protected void loadData(final int page) {
         //step1 show loading UI

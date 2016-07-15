@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.finatext.investgate.R;
-import com.finatext.investgate.fragment.BaseFragment;
 import com.finatext.investgate.fragment.TabFragment;
 import com.finatext.investgate.fragment.analysis.AssetAnalysisHomeFragment;
 import com.finatext.investgate.fragment.events.OnSearchEvent;
@@ -142,7 +141,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             if (childFragmentManager.getBackStackEntryCount() > 0 &&
                     (mCurrentHeaderInfo != null && mCurrentHeaderInfo.haveHeaderBackButton())) {
                 btnHeaderLeft.setVisibility(View.VISIBLE);
-                btnHeaderLeft.setImageResource(R.mipmap.header_back);
+                btnHeaderLeft.setImageResource(R.mipmap.header_back_b);
             } else {
                 //TODO need flexible set header state
                 if (mCurrentHeaderInfo != null && mCurrentHeaderInfo.getHeaderLeftButtonImageResId() != 0) {
@@ -164,6 +163,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             mHeader.setVisibility(View.GONE);
         } else {
             mHeader.setVisibility(View.VISIBLE);
+            mHeader.setBackgroundColor(getResources().getColor(R.color.bg_white));
             if (headerMode == IHeaderInfo.HEADER_MODE_SEARCH || headerMode == IHeaderInfo.HEADER_MODE_SEARCH_INACTIVE) {
                 //show search view
                 headerSearchView.setVisibility(View.VISIBLE);
@@ -193,6 +193,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             } else {
                 headerSearchView.setVisibility(View.GONE);
                 tvHeaderTitle.setVisibility(View.VISIBLE);
+                tvHeaderTitle.setTextColor(getResources().getColor(R.color.black));
                 if (tvHeaderTitle != null) {
                     if (TextUtils.isEmpty(mCustomHeaderText)) {
                         tvHeaderTitle.setText(headerInfo.getHeaderTitleResId());

@@ -16,10 +16,10 @@ public class TradeEach  implements Serializable {
     @SerializedName("date")
     public String date;
     @SerializedName("trading_volumne")
-    public String trading_volumne;
+    public int trading_volumne;
     @SerializedName("commission_fee")
-    public String commission_fee;
+    public int commission_fee;
     @SerializedName("interest")
-    public String interest;
+    public int interest;
 
 }

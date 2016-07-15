@@ -41,6 +41,7 @@ public class SummaryHomeFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mCustomHeaderText = getResources().getString(R.string.header_home_summary);
         if(item == null) {
             callApiTradeSummary();
         }else{
@@ -60,7 +61,6 @@ public class SummaryHomeFragment extends BaseFragment {
 
 
 
-
     public void callApiTradeSummary() {
         Observable<ObjectDto<TradeDto<TradeSummaryItem>>> objectDtoObservable = investgateApi.getTradeSummary();
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto<TradeSummaryItem>>>(this.getActivity(), true) {
@@ -71,7 +71,7 @@ public class SummaryHomeFragment extends BaseFragment {
 
             @Override
             public void onDataSuccess(ObjectDto<TradeDto<TradeSummaryItem>> tradeSummaryItemListDto) {
-                item = tradeSummaryItemListDto.data.ValueData;
+                item = tradeSummaryItemListDto.data.valueData;
                 txtSummary.setText(item.daily_commission+"円");
                 txtHistory.setText(item.daily_profit_loss+"円");
             }

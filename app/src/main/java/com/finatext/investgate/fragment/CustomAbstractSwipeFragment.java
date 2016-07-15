@@ -42,6 +42,7 @@ public abstract class CustomAbstractSwipeFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mCustomHeaderText = getResources().getString(R.string.header_history);
         if(mSectionsPagerAdapter == null) {
             mSectionsPagerAdapter = new AbstractSwipeFragment.SectionsPagerAdapter(getChildFragmentManager());
             initPagerFragment();
