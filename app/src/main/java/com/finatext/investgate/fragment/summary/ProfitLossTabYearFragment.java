@@ -46,6 +46,12 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
         }
         return mAdapter;
     }
+
+    @Override
+    public int getHeaderRightButtonImageResId() {
+        return R.mipmap.header_reload;
+    }
+
     @Override
     public void onClickHeaderRightButton(View view) {
         super.onClickHeaderRightButton(view);

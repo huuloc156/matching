@@ -26,10 +26,10 @@ import butterknife.BindView;
  */
 public abstract class AbstractSwipeFragment extends BaseFragment {
     @BindView(R.id.pager_swipe)
-    ViewPager mViewPager;
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    protected ViewPager mViewPager;
+    protected SectionsPagerAdapter mSectionsPagerAdapter;
     @BindView(R.id.tab_layout)
-    TabLayout mTabLayout;
+    protected TabLayout mTabLayout;
     boolean isTabbarRound = true;
 
     public AbstractSwipeFragment() {
