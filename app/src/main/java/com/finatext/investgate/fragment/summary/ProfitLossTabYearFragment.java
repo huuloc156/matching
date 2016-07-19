@@ -58,7 +58,7 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
         callApiTradeSummary(page);
 //        demoData(page);
     }
-    public void callApiTradeSummary(final int page) {
+    private void callApiTradeSummary(final int page) {
 
         Observable<ListDto<ProfitLossYearItem>> objectDtoObservable = investgateApi.getDailyPLSummary(page);
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ListDto<ProfitLossYearItem>>(this.getActivity(), true) {
@@ -70,14 +70,17 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
             @Override
             public void onDataSuccess(ListDto<ProfitLossYearItem> tradeSummaryYearItem) {
                 List<ProfitLossYearItem> items = tradeSummaryYearItem.data.items;
+                String day = "";
                 for(int i = 0; i< items.size(); i++){
                     try {
                         ProfitLossYearItem item = items.get(i);
                         Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(item.datetime);
                         item.datetime = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);
                         item.year = new SimpleDateFormat("yyyy/MM/dd").format(date);
-                        if(i == 0){
+                        String day_format = new SimpleDateFormat("dd").format(date);
+                        if(!day.equals(day_format)){
                             item.isHeader = true;
+                            day = day_format;
                         }
                         items.set(i, item);
                     } catch (ParseException e) {
@@ -103,10 +106,7 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
             }
         });
     }
-    @Override
-    public void onItemClick(View view, int position) {
-        startFragment(new TradeDetailFragment(),true);
-    }
+
 
     public static class ProfitLossYearItemAdapter extends RecyclerArrayAdapter<ProfitLossYearItem, ProfitLossYearItemViewHolder>{
         @Override
@@ -144,8 +144,8 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
             holder.txtyStatus.setText(item.status);
             holder.txtyName.setText(item.name);
             holder.txtyCompanyName.setText(item.companyname);
-            holder.txtyType.setText(item.type);
-            holder.txtyPositionPl.setText(item.position_pl+"円");
+            holder.txtyType.setText(convertStyle(item.type));
+            holder.txtyPositionPl.setText(convertMoney((int)item.position_pl));
             holder.txtyCloseDate.setText(item.datetime);
             holder.txtYear.setText(String.valueOf(item.year));
             if(item.isHeader){
@@ -155,6 +155,17 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
                 holder.llHeader.setVisibility(View.GONE);
                 holder.llLine.setVisibility(View.VISIBLE);
             }
+        }
+
+        public static String convertStyle(String style){
+            if(style.equals("stock") ) {
+               return "株";
+            }else if(style.equals("position")){
+                return "FX";
+            }else if(style.equals("trust")){
+                return "投信";
+            }
+            return "other";
         }
 
     }
@@ -198,7 +209,7 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
 //                        items.add("item page " + page + "  order" + i);
                         ProfitLossYearItem temp= new ProfitLossYearItem();
                         temp.name="Name"+i;
-                        temp.position_pl="+435...";
+                        temp.position_pl= 345;
                         temp.datetime="2016/05/01 23:09";
                         temp.companyname="abgdfgdfgdf gdfgfgdc"+i;
                         temp.status="ssss";

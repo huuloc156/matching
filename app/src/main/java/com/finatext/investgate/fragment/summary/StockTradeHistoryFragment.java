@@ -2,6 +2,7 @@ package com.finatext.investgate.fragment.summary;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.finatext.investgate.data.api.ApiSubscriber;
@@ -12,8 +13,11 @@ import com.finatext.investgate.data.api.dto.summary.TradeEach;
 
 import rx.Observable;
 
-public class TradeHistoryFragmentStock extends TradeHistoryFragmentAstrack {
+public class StockTradeHistoryFragment extends TradeHistoryFragment {
 
+    public static Fragment getInstance(){
+        return new StockTradeHistoryFragment();
+    }
     @Override
     protected void loadData(final int page) {
             setUILoading(page);
@@ -48,7 +52,7 @@ public class TradeHistoryFragmentStock extends TradeHistoryFragmentAstrack {
 
                 android.support.v4.app.Fragment fragment = new TradeHistoryDetailFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("TradeEachData", item);
+                bundle.putParcelable("TradeEachData", item);
                 fragment.setArguments(bundle);
                 startFragment(fragment,true);
             }

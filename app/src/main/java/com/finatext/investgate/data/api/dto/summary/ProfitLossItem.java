@@ -14,7 +14,7 @@ public class ProfitLossItem {
 //    public String companyname;
     public String datetime;
     @SerializedName("p_l")
-    public String position_pl;
+    public float position_pl;
     @SerializedName("year")
     public int year;
     public boolean isHeader;

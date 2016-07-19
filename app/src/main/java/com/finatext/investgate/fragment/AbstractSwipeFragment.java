@@ -13,13 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.finatext.investgate.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +30,7 @@ public abstract class AbstractSwipeFragment extends BaseFragment {
     SectionsPagerAdapter mSectionsPagerAdapter;
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
-    boolean isTabbarRound = false;
+    boolean isTabbarRound = true;
 
     public AbstractSwipeFragment() {
         // Required empty public constructor
@@ -64,6 +64,7 @@ public abstract class AbstractSwipeFragment extends BaseFragment {
                 }
             }
         });
+
     }
 
     protected abstract void initPagerFragment() ;
@@ -83,18 +84,18 @@ public abstract class AbstractSwipeFragment extends BaseFragment {
         }
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setTabTextColors(Color.WHITE, getResources().getColor(R.color.bg_tab));
-//        if(isTabbarRound) {
-//            if (mTabLayout.getTabCount() >= 2) {
-//                if(mTabLayout.getChildCount()>0 && (mTabLayout.getChildAt(0) instanceof ViewGroup)) {
-//                    ViewGroup viewGroup = (ViewGroup) mTabLayout.getChildAt(0);
-//                    if(viewGroup.getChildCount()>=2) {
-//                        int lastChildIdx = viewGroup.getChildCount() - 1;
-//                        viewGroup.getChildAt(lastChildIdx).setBackgroundResource(R.drawable.bar_bg_right_selector);
-//                        viewGroup.getChildAt(0).setBackgroundResource(R.drawable.bar_bg_left_selector);;
-//                    }
-//                }
-//            }
-//        }
+        if(isTabbarRound) {
+            if (mTabLayout.getTabCount() >= 2) {
+                if(mTabLayout.getChildCount()>0 && (mTabLayout.getChildAt(0) instanceof ViewGroup)) {
+                    ViewGroup viewGroup = (ViewGroup) mTabLayout.getChildAt(0);
+                    if(viewGroup.getChildCount()>=2) {
+                        int lastChildIdx = viewGroup.getChildCount() - 1;
+                        viewGroup.getChildAt(lastChildIdx).setBackgroundResource(R.drawable.bar_bg_r_selector);
+                        viewGroup.getChildAt(0).setBackgroundResource(R.drawable.bar_bg_selector);;
+                    }
+                }
+            }
+        }
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             TabLayout.Tab tabAt = mTabLayout.getTabAt(i);
             if(tabAt!=null) {

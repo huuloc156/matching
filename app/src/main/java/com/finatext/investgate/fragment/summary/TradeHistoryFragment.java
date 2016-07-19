@@ -21,11 +21,7 @@ import java.util.List;
 
 import rx.Observable;
 
-/**
- * Created by RENTRACKS VN3 on 7/13/2016.
- */
-
-public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment {
+public class TradeHistoryFragment extends AbstractPullAndLoadmoreFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +48,7 @@ public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment
     protected void loadData(final int page) {
 
     }
-    public void callApiTradeSummary(final int page, final String type) {
+    protected void callApiTradeSummary(final int page, final String type) {
 
         Observable<ListDto<TradeHistoryItem>> objectDtoObservable = investgateApi.getDailyTradeList(page, type);
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ListDto<TradeHistoryItem>>(this.getActivity(), true) {
@@ -76,7 +72,7 @@ public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment
     }
     private  List<ProfitLossYearItem> convertData( List<TradeHistoryItem> items_history) {
         List<ProfitLossYearItem> items = new ArrayList<ProfitLossYearItem>(items_history.size()) ;
-        int  year = 0;
+        int  day = 0;
         for(int i = 0; i< items_history.size(); i++){
             try {
                 ProfitLossYearItem item = new ProfitLossYearItem();
@@ -89,10 +85,10 @@ public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment
                 Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(items_history.get(i).datetime);
                 item.datetime = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);
                 item.year = new SimpleDateFormat("yyyy/MM/dd").format(date);
-                int year_format = Integer.valueOf(new SimpleDateFormat("yyyy").format(date));
-                if(year_format != year){
+                int day_format = Integer.valueOf(new SimpleDateFormat("dd").format(date));
+                if(day_format != day){
                     item.isHeader = true;
-                    year = year_format;
+                    day = day_format;
                 }
                 items.add(item);
             } catch (ParseException e) {
@@ -123,7 +119,7 @@ public class TradeHistoryFragmentAstrack extends AbstractPullAndLoadmoreFragment
 //                        items.add("item page " + page + "  order" + i);
                         ProfitLossYearItem temp= new ProfitLossYearItem();
                         temp.name="History"+i;
-                        temp.position_pl="+435...";
+                        temp.position_pl= 435;
                         temp.datetime="2016/05/01 23:09";
                         temp.companyname="abgdfgdfgdf gdfgfgdc"+i;
                         temp.status="ssss";

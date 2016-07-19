@@ -32,6 +32,12 @@ public abstract class CustomAbstractSwipeFragment extends BaseFragment{
     public CustomAbstractSwipeFragment(){
 
     }
+
+    @Override
+    public void onClickHeaderRightButton(View view) {
+        super.onClickHeaderRightButton(view);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

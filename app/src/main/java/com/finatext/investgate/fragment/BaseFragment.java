@@ -142,9 +142,11 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
 
     @Override
     public void onClickHeaderRightButton(View view) {
-
+        onClickHeader(view);
     }
-
+    protected void onClickHeader(View view){
+        Timber.tag("basefragment").i("onClickHeader");
+    }
     @Override
     public boolean haveHeaderBackButton() {
         return true;
@@ -281,5 +283,15 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
         return false;
     }
 
-
+    public static String convertMoney(int money){
+       return convertMoney(money, false);
+    }
+    public static String convertMoney(int money, boolean isSpotted){
+        if(money == 0){
+            return 0+"円";
+        }else if(money > 0){
+            return (isSpotted?"+":"")+String.format("%,d",money)+"円";
+        }
+        return String.format("%,d",money)+"円";
+    }
 }

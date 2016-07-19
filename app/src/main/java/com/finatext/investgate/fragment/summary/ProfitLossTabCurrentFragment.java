@@ -24,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
 
+import static com.finatext.investgate.fragment.summary.ProfitLossTabYearFragment.ProfitLossYearItemAdapter.convertStyle;
+
 /**
  * Created by apple on 6/20/16.
  */
@@ -53,11 +55,9 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
             setValue(DataItemAttr);
         }
     }
-    @Override
-    public void onClickHeaderRightButton(View view) {
-        super.onClickHeaderRightButton(view);
-        onRefresh();
-    }
+
+
+
     ProfitLossAdapter mAdapter;
 
     @Override
@@ -80,7 +80,7 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
     public void onItemClick(View view, int position) {
         startFragment(new TradeDetailFragment(),true);
     }
-    public void callApiTradeSummary(final int page) {
+    private void callApiTradeSummary(final int page) {
 
         Observable<ListDto<ProfitLossItem>> objectDtoObservable = investgateApi.getTradeSummaryYear();
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ListDto<ProfitLossItem>>(this.getActivity(), true) {
@@ -126,10 +126,10 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         int sum_stock = data.sum_stock;
         int sum_fx = data.sum_fx;
         int all = sum_all + sum_stock + sum_fx;
-        txtSumAll.setText(((all>0)?"+":"-")+all+"円");
-        txtKabuPL.setText(((sum_all>0)?"+":"-")+sum_all+"円");
-        txtFxPL.setText(((sum_fx>0)?"+":"-")+sum_fx+"円");
-        txtTrustPl.setText(((sum_stock>0)?"+":"-")+sum_stock+"円");
+        txtSumAll.setText(convertMoney(all));
+        txtKabuPL.setText(convertMoney(sum_all));
+        txtFxPL.setText(convertMoney(sum_fx));
+        txtTrustPl.setText(convertMoney(sum_stock));
 
     }
     class ProfitLossAdapter extends RecyclerArrayAdapter<ProfitLossItem, ProfitLossViewHolder>{
@@ -144,16 +144,9 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         @Override
         public void onBindViewHolder(ProfitLossViewHolder holderItem, int position) {
             ProfitLossItem item = getItem(position);
-                if(item.type == "stock") {
-                    holderItem.txtProfitName.setText("投信");
-                }else if(item.type == "fx"){
-                    holderItem.txtProfitName.setText("FX");
-                }else if(item.type == "trust"){
-                    holderItem.txtProfitName.setText("投信");
-                }else{
-                        holderItem.txtProfitName.setText("other");
-                }
-                holderItem.txtProfitMoney.setText(item.position_pl);
+                holderItem.txtProfitName.setText(convertStyle(item.type));
+
+                holderItem.txtProfitMoney.setText(convertMoney((int)item.position_pl, true) );
                 holderItem.txtCloseDate.setText(item.datetime);
                 holderItem.txtYear.setText(String.valueOf(item.year));
                 if(item.isHeader){
@@ -196,7 +189,7 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
 //                        items.add("item page " + page + "  order" + i);
                         ProfitLossItem temp= new ProfitLossItem();
                         temp.name="Name"+i;
-                        temp.position_pl="+435...";
+                        temp.position_pl= 345;
                         temp.datetime="2016/05/01 23:09";
                         temp.isHeader = i%3 ==0;
                         if(temp.isHeader){

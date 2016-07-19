@@ -10,7 +10,7 @@ public class TradeHistoryItem {
     @SerializedName("date")
     public String datetime;
     @SerializedName("trade_volumne")
-    public String TradeVol;
+    public float TradeVol;
     @SerializedName("name")
     public String name;
     @SerializedName("status")

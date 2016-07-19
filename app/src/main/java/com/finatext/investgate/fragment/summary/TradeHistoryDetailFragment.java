@@ -42,20 +42,20 @@ public class TradeHistoryDetailFragment extends BaseFragment {
         mCustomHeaderText = getResources().getString(R.string.header_history_detail);
         Bundle args = getArguments();
         mData = (TradeEach) args
-                .getSerializable("TradeEachData");
+                .getParcelable("TradeEachData");
         return inflater.inflate(R.layout.fragment_summary_trade_history_detail, container, false);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if(mData != null){
             txttype.setText(mData.type);
             txtName.setText(mData.name);
             txtdate.setText(mData.date);
-            txtTraddingVolumne.setText(String.valueOf(mData.trading_volumne)+"円");
-            txtComission.setText(String.valueOf(mData.commission_fee)+"円");
-            txtInterest.setText(String.valueOf(mData.interest)+"円");
+            txtTraddingVolumne.setText(convertMoney(mData.trading_volumne, false));
+            txtComission.setText(convertMoney(mData.commission_fee, false));
+            txtInterest.setText(convertMoney(mData.interest, false));
         }
     }
 }

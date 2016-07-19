@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <TextView
         android:gravity="center"
-        android:text="+12,345円"
+        android:text="円"
         android:layout_width="match_parent"
         android:textSize="35sp"
         android:layout_height="100dp"
@@ -27,13 +27,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="kaku"
+                android:text="株"
+                android:textColor="@color/background_4"
                 android:textSize="14sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123"
+                android:text="0"
                 android:textSize="30sp"
+                android:textColor="@color/background_1"
                 android:id="@+id/txt_profit_kabu_pl"/>
         </LinearLayout>
         <LinearLayout
@@ -46,11 +48,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FX"
+                android:textColor="@color/background_2"
                 android:textSize="14sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123"
+                android:text="0"
+                android:textColor="@color/background_2"
                 android:textSize="30sp"
                 android:id="@+id/txt_profit_fx_pl"/>
         </LinearLayout>
@@ -63,12 +67,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="trust"
+                android:text="投信"
+                android:textColor="@color/background_3"
                 android:textSize="14sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123"
+                android:text="0"
+                android:textColor="@color/background_3"
                 android:textSize="30sp"
                 android:id="@+id/txt_profit_trust_pl"/>
         </LinearLayout>

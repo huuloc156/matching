@@ -10,11 +10,12 @@ public class ProfitLossYearItem {
     public String status;
     @SerializedName("name")
     public String name;
-    @SerializedName("gate_t")
+    @SerializedName("gate_type")
     public String type;
+    @SerializedName("gate_name")
     public String companyname;
     @SerializedName("p_l")
-    public String position_pl;
+    public float position_pl;
     @SerializedName("trade_date")
     public String datetime;
     public boolean isHeader;
