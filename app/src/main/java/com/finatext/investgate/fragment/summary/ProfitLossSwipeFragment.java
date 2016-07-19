@@ -18,6 +18,7 @@ public class ProfitLossSwipeFragment extends AbstractSwipeFragment {
         mCustomHeaderText = getResources().getString(R.string.header_profit_loss);
         addFragment("実現損益", new ProfitLossTabCurrentFragment());
         addFragment("年間の累計損益", new ProfitLossTabYearFragment());
+        
     }
 
     @Override
