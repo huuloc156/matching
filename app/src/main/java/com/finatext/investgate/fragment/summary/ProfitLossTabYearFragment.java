@@ -75,6 +75,10 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
 
             @Override
             public void onDataSuccess(ListDto<ProfitLossYearItem> tradeSummaryYearItem) {
+                if(tradeSummaryYearItem.data == null){
+                    notifyLoadFail(page);
+                    return;
+                }
                 List<ProfitLossYearItem> items = tradeSummaryYearItem.data.items;
                 String day = "";
                 for(int i = 0; i< items.size(); i++){
@@ -166,7 +170,7 @@ public class ProfitLossTabYearFragment extends AbstractPullAndLoadmoreFragment {
         public static String convertStyle(String style){
             if(style.equals("stock") ) {
                return "株";
-            }else if(style.equals("position")){
+            }else if(style.equals("fx")){
                 return "FX";
             }else if(style.equals("trust")){
                 return "投信";

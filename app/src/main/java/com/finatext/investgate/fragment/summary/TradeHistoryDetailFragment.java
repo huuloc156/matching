@@ -11,7 +11,13 @@ import com.finatext.investgate.R;
 import com.finatext.investgate.data.api.dto.summary.TradeEach;
 import com.finatext.investgate.fragment.BaseFragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
+
+import static com.finatext.investgate.fragment.summary.ProfitLossTabYearFragment.ProfitLossYearItemAdapter.convertStyle;
 
 public class TradeHistoryDetailFragment extends BaseFragment {
 
@@ -50,9 +56,16 @@ public class TradeHistoryDetailFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(mData != null){
-            txttype.setText(mData.type);
+            txttype.setText(convertStyle(mData.type));
             txtName.setText(mData.name);
-            txtdate.setText(mData.date);
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(mData.date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String datetime = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);
+            txtdate.setText(datetime);
             txtTraddingVolumne.setText(convertMoney(mData.trading_volumne, false));
             txtComission.setText(convertMoney(mData.commission_fee, false));
             txtInterest.setText(convertMoney(mData.interest, false));

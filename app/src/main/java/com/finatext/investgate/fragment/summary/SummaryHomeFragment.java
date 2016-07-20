@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.finatext.investgate.R;
 import com.finatext.investgate.data.api.ApiSubscriber;
 import com.finatext.investgate.data.api.dto.ObjectDto;
-import com.finatext.investgate.data.api.dto.summary.TradeDto;
 import com.finatext.investgate.data.api.dto.summary.TradeSummaryItem;
 import com.finatext.investgate.fragment.BaseFragment;
 
@@ -73,19 +72,19 @@ public class SummaryHomeFragment extends BaseFragment {
 
     private void callApiTradeSummary() {
         showProgressDialog();
-        Observable<ObjectDto<TradeDto<TradeSummaryItem>>> objectDtoObservable = investgateApi.getTradeSummary();
-        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto<TradeSummaryItem>>>(this.getActivity(), true) {
+        Observable<ObjectDto<TradeSummaryItem>> objectDtoObservable = investgateApi.getTradeSummary();
+        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeSummaryItem>>(this.getActivity(), true) {
             @Override
-            protected void onDataError(ObjectDto<TradeDto<TradeSummaryItem>> tradeSummaryItemListDto) {
+            protected void onDataError(ObjectDto<TradeSummaryItem> tradeSummaryItemListDto) {
                 closeDialog();
             }
 
             @Override
-            public void onDataSuccess(ObjectDto<TradeDto<TradeSummaryItem>> tradeSummaryItemListDto) {
-                item = tradeSummaryItemListDto.data.valueData;
+            public void onDataSuccess(ObjectDto<TradeSummaryItem> tradeSummaryItemListDto) {
+                closeDialog();
+                item = tradeSummaryItemListDto.data;
                 txtSummary.setText(convertMoney(item.daily_commission, false));
                 txtHistory.setText("手数料 "+convertMoney(item.daily_profit_loss, false));
-                closeDialog();
             }
         });
     }

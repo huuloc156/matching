@@ -7,9 +7,8 @@ import android.view.View;
 
 import com.finatext.investgate.data.api.ApiSubscriber;
 import com.finatext.investgate.data.api.dto.ObjectDto;
-import com.finatext.investgate.data.api.dto.summary.ProfitLossYearItem;
-import com.finatext.investgate.data.api.dto.summary.TradeDto;
 import com.finatext.investgate.data.api.dto.summary.TradeEach;
+import com.finatext.investgate.utils.ToastUtils;
 
 import rx.Observable;
 
@@ -28,20 +27,22 @@ public class StockTradeHistoryFragment extends TradeHistoryFragment {
     public void onItemClick(View view, int position) {
         super.onItemClick(view, position);
         setRefreshing(true);
-
-        ProfitLossYearItem item = mAdapter.getItem(position);
-        int id = 1463;
-        Observable<ObjectDto<TradeDto<TradeEach>>> objectDtoObservable = investgateApi.getEachTrade(id);
-        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeDto<TradeEach>>>(this.getActivity(), true) {
+        int id =  mAdapter.getItem(position).stockTradeId;
+        Observable<ObjectDto<TradeEach>> objectDtoObservable = investgateApi.getEachTrade(id);
+        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<TradeEach>>(this.getActivity(), true) {
             @Override
-            protected void onDataError(ObjectDto<TradeDto<TradeEach>> tradeSummaryItemListDto) {
+            protected void onDataError(ObjectDto<TradeEach> tradeSummaryItemListDto) {
                 setRefreshing(false);
             }
 
             @Override
-            public void onDataSuccess(ObjectDto<TradeDto<TradeEach>> Items) {
+            public void onDataSuccess(ObjectDto<TradeEach> Items) {
                 setRefreshing(false);
-                TradeEach item = Items.data.valueData;
+                if(Items.data == null){
+                    ToastUtils.show(getContext(), "Null");
+                    return;
+                }
+                TradeEach item = Items.data;
 //                TradeEach item = new TradeEach();
 //                item.commission_fee = 789;
 //                item.type = "投信";

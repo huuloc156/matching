@@ -18,6 +18,8 @@ public class ProfitLossYearItem {
     public float position_pl;
     @SerializedName("trade_date")
     public String datetime;
+    @SerializedName("stock_trade_id")
+    public int stockTradeId;
     public boolean isHeader;
     public String year;
 }

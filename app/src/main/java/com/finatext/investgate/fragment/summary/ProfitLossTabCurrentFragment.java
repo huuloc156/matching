@@ -100,6 +100,10 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
 
             @Override
             public void onDataSuccess(ListDto<ProfitLossItem> tradeSummaryYearItem) {
+                if(tradeSummaryYearItem.data == null){
+                    notifyLoadFail(page);
+                    return;
+                }
                 List<ProfitLossItem> items = tradeSummaryYearItem.data.items;
                 DataItemAttr = tradeSummaryYearItem.data.pageInfo;
                 int last_page = tradeSummaryYearItem.data.pageInfo.lastPage;

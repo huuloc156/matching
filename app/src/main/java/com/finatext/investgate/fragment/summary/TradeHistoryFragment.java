@@ -59,14 +59,19 @@ public class TradeHistoryFragment extends AbstractPullAndLoadmoreFragment {
 
             @Override
             public void onDataSuccess(ListDto<TradeHistoryItem> tradeSummaryYearItem) {
-                List<TradeHistoryItem> items_history =tradeSummaryYearItem.data.items;
-                List<ProfitLossYearItem> list = convertData(items_history);
-//                if(type == "stock") {
-//                    listStock = list;
-//                }
-                int last_page = 1;
-                int page = 1;
-                showData(page, last_page, list);
+                if(tradeSummaryYearItem.data != null){
+                    List<TradeHistoryItem> items_history =tradeSummaryYearItem.data.items;
+                    List<ProfitLossYearItem> list = convertData(items_history);
+                    int last_page = 1;
+                    int page = 1;
+                    if(tradeSummaryYearItem.data.pageInfo != null){
+                        last_page = tradeSummaryYearItem.data.pageInfo.lastPage;
+                        page = tradeSummaryYearItem.data.pageInfo.page;
+                    }
+                    showData(page, last_page, list);
+                }else {
+                    notifyLoadFail(page);
+                }
             }
         });
     }
@@ -81,6 +86,7 @@ public class TradeHistoryFragment extends AbstractPullAndLoadmoreFragment {
                 item.type = items_history.get(i).type;
                 item.companyname = items_history.get(i).company_name;
                 item.position_pl = items_history.get(i).TradeVol;
+                item.stockTradeId = items_history.get(i).stockTradeId;
 
                 Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(items_history.get(i).datetime);
                 item.datetime = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);

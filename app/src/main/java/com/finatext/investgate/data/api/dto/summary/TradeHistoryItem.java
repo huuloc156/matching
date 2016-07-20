@@ -2,9 +2,6 @@ package com.finatext.investgate.data.api.dto.summary;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by RENTRACKS VN3 on 7/12/2016.
- */
 
 public class TradeHistoryItem {
     @SerializedName("date")
@@ -19,6 +16,8 @@ public class TradeHistoryItem {
     public String type;
     @SerializedName("company_name")
     public String company_name;
+    @SerializedName("stock_trade_id")
+    public int stockTradeId;
     public boolean isHeader;
     public String year;
 }
