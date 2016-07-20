@@ -56,7 +56,16 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         }
     }
 
+    @Override
+    public int getHeaderRightButtonImageResId() {
+        return R.mipmap.header_reload;
+    }
 
+    @Override
+    public void onClickHeaderRightButton(View view) {
+        super.onClickHeaderRightButton(view);
+        onRefresh();
+    }
 
     ProfitLossAdapter mAdapter;
 
@@ -126,10 +135,10 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
         int sum_stock = data.sum_stock;
         int sum_fx = data.sum_fx;
         int all = sum_all + sum_stock + sum_fx;
-        txtSumAll.setText(convertMoney(all));
-        txtKabuPL.setText(convertMoney(sum_all));
-        txtFxPL.setText(convertMoney(sum_fx));
-        txtTrustPl.setText(convertMoney(sum_stock));
+        txtSumAll.setText(convertMoney(all, true));
+        txtKabuPL.setText(convertMoney(sum_all, true));
+        txtFxPL.setText(convertMoney(sum_fx, true));
+        txtTrustPl.setText(convertMoney(sum_stock, true));
 
     }
     class ProfitLossAdapter extends RecyclerArrayAdapter<ProfitLossItem, ProfitLossViewHolder>{

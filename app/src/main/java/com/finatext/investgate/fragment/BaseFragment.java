@@ -142,10 +142,6 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
 
     @Override
     public void onClickHeaderRightButton(View view) {
-        onClickHeader(view);
-    }
-    protected void onClickHeader(View view){
-        Timber.tag("basefragment").i("onClickHeader");
     }
     @Override
     public boolean haveHeaderBackButton() {

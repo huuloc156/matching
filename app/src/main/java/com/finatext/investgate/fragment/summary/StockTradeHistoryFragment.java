@@ -41,14 +41,14 @@ public class StockTradeHistoryFragment extends TradeHistoryFragment {
             @Override
             public void onDataSuccess(ObjectDto<TradeDto<TradeEach>> Items) {
                 setRefreshing(false);
-//                TradeEach item = Items.data.valueData;
-                TradeEach item = new TradeEach();
-                item.commission_fee = 789;
-                item.type = "投信";
-                item.name = "日産自動車";
-                item.date = "dddd";
-                item.trading_volumne = 123;
-                item.interest = 456;
+                TradeEach item = Items.data.valueData;
+//                TradeEach item = new TradeEach();
+//                item.commission_fee = 789;
+//                item.type = "投信";
+//                item.name = "日産自動車";
+//                item.date = "dddd";
+//                item.trading_volumne = 123;
+//                item.interest = 456;
 
                 android.support.v4.app.Fragment fragment = new TradeHistoryDetailFragment();
                 Bundle bundle = new Bundle();
