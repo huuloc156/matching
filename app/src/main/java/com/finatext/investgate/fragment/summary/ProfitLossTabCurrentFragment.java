@@ -87,7 +87,12 @@ public class ProfitLossTabCurrentFragment extends AbstractPullAndLoadmoreFragmen
 
     @Override
     public void onItemClick(View view, int position) {
-        startFragment(new TradeDetailFragment(),true);
+        ProfitLossItem item = mAdapter.getItem(position);
+        android.support.v4.app.Fragment fragment = TradeDetailFragment.getInstance();
+        Bundle bundle = new Bundle();
+        bundle.putInt("ProfitLossData", item.year);
+        fragment.setArguments(bundle);
+        startFragment(fragment,true);
     }
     private void callApiTradeSummary(final int page) {
 

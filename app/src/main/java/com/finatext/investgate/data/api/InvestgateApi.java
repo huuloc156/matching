@@ -5,6 +5,7 @@ import com.finatext.investgate.data.api.dto.ObjectDto;
 import com.finatext.investgate.data.api.dto.login.GetLoginData;
 import com.finatext.investgate.data.api.dto.login.RegistrationItem;
 import com.finatext.investgate.data.api.dto.summary.ProfitLossItem;
+import com.finatext.investgate.data.api.dto.summary.ProfitLossYearDetailItem;
 import com.finatext.investgate.data.api.dto.summary.ProfitLossYearItem;
 import com.finatext.investgate.data.api.dto.summary.TradeEach;
 import com.finatext.investgate.data.api.dto.summary.TradeHistoryItem;
@@ -49,4 +50,7 @@ public interface InvestgateApi {
 
     @GET("/api/v1/each_trade.json")
     Observable<ObjectDto<TradeEach>> getEachTrade(@Query("stock_trade_id") int page);
+
+    @GET("/api/v1/yearly_pl_summary.json")
+    Observable<ListDto<ProfitLossYearDetailItem>> getYearlySummary(@Query("year") int year);
 }
