@@ -13,15 +13,17 @@
 
         <TextView
             android:id="@+id/txt_profit_loss_year_detail_day"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text=""
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txt_profit_loss_year_sum_pl_by_year"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text=""
             android:textSize="33sp" />
     </LinearLayout>
@@ -40,8 +42,9 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="利益"
                 android:textSize="18sp" />
 
@@ -52,8 +55,9 @@
 
             <TextView
                 android:id="@+id/txt_profit_loss_year_sum_profit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text=""
                 android:textSize="20sp" />
         </LinearLayout>
@@ -66,8 +70,9 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="損失"
                 android:textSize="18sp" />
 
@@ -78,25 +83,27 @@
 
             <TextView
                 android:id="@+id/txt_profit_loss_year_sum_loss"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text=""
                 android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <include
-        layout="@layout/fragment_pull_to_refresh_load_more"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:gravity="right"
-        android:text=""
-        android:id="@+id/txt_profit_loss_year_last_update"
-        android:layout_alignParentBottom="true"/>
+
+        <include layout="@layout/fragment_pull_to_refresh_load_more" />
+
+        <TextView
+            android:id="@+id/txt_profit_loss_year_last_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:gravity="right"
+            android:text="" />
     </RelativeLayout>
 </LinearLayout>
