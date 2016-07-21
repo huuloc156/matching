@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txt_profit_loss_year_sum_pl_by_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="35sp" />
+            android:textSize="33sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="利益"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="100dp"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="損失"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="100dp"
@@ -81,14 +81,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="25sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <include
-        layout="@layout/fragment_pull_to_refresh_load_more" />
+        layout="@layout/fragment_pull_to_refresh_load_more"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

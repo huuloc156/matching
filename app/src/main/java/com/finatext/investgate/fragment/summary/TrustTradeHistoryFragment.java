@@ -10,7 +10,7 @@ public class TrustTradeHistoryFragment extends TradeHistoryFragment {
     }
     @Override
     protected void loadData(final int page) {
-        setUILoading(page);
-        callApiTradeSummary(page, "trust");
+//        setUILoading(page);
+//        callApiTradeSummary(page, "trust");
     }
 }

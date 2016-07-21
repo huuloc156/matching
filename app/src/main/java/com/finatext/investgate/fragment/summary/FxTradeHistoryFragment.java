@@ -9,7 +9,7 @@ public class FxTradeHistoryFragment extends TradeHistoryFragment {
     }
     @Override
     protected void loadData(final int page) {
-        setUILoading(page);
-        callApiTradeSummary(page, "fx");
+//        setUILoading(page);
+//        callApiTradeSummary(page, "fx");
     }
 }

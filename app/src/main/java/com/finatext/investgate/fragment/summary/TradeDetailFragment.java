@@ -155,7 +155,7 @@ public class TradeDetailFragment extends AbstractPullAndLoadmoreFragment {
             public void run() {
                 final List<ProfitLossYearDetailItem> items = new ArrayList<>();
                 if(page <=3) {
-                    for (int i = 0; i < 20; i++) {
+                    for (int i = 0; i < 30; i++) {
                         ProfitLossYearDetailItem temp= new ProfitLossYearDetailItem();
 //                        temp.name="Name"+i;
                         items.add(temp);
