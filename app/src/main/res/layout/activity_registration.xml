@@ -56,10 +56,5 @@
         android:background="@drawable/btn_bg_round_blue"
         android:text="Register" />
 
-    <Button
-        android:id="@+id/btn_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Open Main" />
 
 </LinearLayout>

@@ -1,8 +1,11 @@
 package com.finatext.investgate.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.finatext.investgate.R;
@@ -32,9 +35,12 @@ public class RegistrationActivity extends BaseActivity {
         setContentView(R.layout.activity_registration);
     }
 
-    @OnClick(R.id.btn_main)
-    public void openMain() {
-        startActivity(new Intent(this, MainActivity.class));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.btn_register)
@@ -62,6 +68,12 @@ public class RegistrationActivity extends BaseActivity {
             edtPassword.requestFocus();
             return;
         }
+        //            hide keyboard
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
 
         callApiRegistration(email, password, password_confirmation);
     }
@@ -86,6 +98,10 @@ public class RegistrationActivity extends BaseActivity {
                 sharePreferenceData.setUserToken(data.token);
                 sharePreferenceData.setUserId(data.user_id);
                 //TODO xu ly logic thanh cong
+                Intent main = new Intent(getBaseContext(), MainActivity.class);
+                main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(main);
+                finish();
             }
 
             @Override

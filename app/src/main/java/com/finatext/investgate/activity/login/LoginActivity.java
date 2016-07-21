@@ -1,15 +1,19 @@
 package com.finatext.investgate.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.finatext.investgate.R;
 import com.finatext.investgate.activity.BaseActivity;
-import com.finatext.investgate.data.api.dto.login.GetLoginData;
+import com.finatext.investgate.activity.MainActivity;
 import com.finatext.investgate.data.api.ApiSubscriber;
 import com.finatext.investgate.data.api.dto.ObjectDto;
+import com.finatext.investgate.data.api.dto.login.GetLoginData;
 import com.finatext.investgate.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -32,6 +36,14 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.btnLogin)
     public void loginActivity()
     {
@@ -52,6 +64,12 @@ public class LoginActivity extends BaseActivity {
             check=false;
         }
         if(check) {
+//            hide keyboard
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
             callApiRegistration();
         }
 
@@ -76,8 +94,12 @@ public class LoginActivity extends BaseActivity {
                 GetLoginData data = registrationItemObjectDto.data;
                 sharePreferenceData.setUserToken(data.token);
                 sharePreferenceData.setUserId(data.user_id);
-                ToastUtils.show(LoginActivity.this,"ok");
+                ToastUtils.show(LoginActivity.this,"Login successful");
                 //TODO xu ly logic thanh cong
+                Intent main = new Intent(getBaseContext(), MainActivity.class);
+                main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(main);
+                finish();
             }
 
             @Override
