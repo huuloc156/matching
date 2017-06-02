@@ -25,6 +25,7 @@ import com.rentracks.matching.data.api.dto.ObjectDto;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
+import com.rentracks.matching.fragment.header.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -40,6 +41,8 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.Observable;
+
+import static com.rentracks.matching.R.array.gender;
 
 /**
  * Created by HuuLoc on 5/29/17.
@@ -62,6 +65,10 @@ public class EditAccountFragment2 extends BaseFragment{
     Spinner spn_location;
     @BindView(R.id.edt_descripton_fea2)
     EditText edt_description;
+    ListenerClose mListener;
+    public void setListenerClose(ListenerClose l){
+        mListener = l;
+    }
 
     public static EditAccountFragment2 getInstance(){
         return new EditAccountFragment2();
@@ -111,7 +118,7 @@ public class EditAccountFragment2 extends BaseFragment{
             spn_age.setSelection(spinnerPosition);
         }
 
-        ArrayAdapter<CharSequence> adapter_gender = ArrayAdapter.createFromResource(getContext(),  R.array.gender, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter_gender = ArrayAdapter.createFromResource(getContext(),  gender, android.R.layout.simple_spinner_item);
         adapter_gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_gender.setAdapter(adapter_gender);
         if (!"".equals(mData.gender)) {
@@ -134,16 +141,20 @@ public class EditAccountFragment2 extends BaseFragment{
 
     @OnClick(R.id.img_fed)
     public void clickAvt(){
+        CommonUtils.verifyStoragePermissions(getActivity());
+
         Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
         openGalleryIntent.setType("image/*");
         startActivityForResult(openGalleryIntent, REQUEST_GALLERY_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == REQUEST_GALLERY_CODE && resultCode == Activity.RESULT_OK){
             uri = data.getData();
+
 //            if(EasyPermissions.hasPermissions(this, Manifestnifest.permission.READ_EXTERNAL_STORAGE)) {
                 String filePath = getRealPathFromURIPath(uri, getActivity());
                 File file = new File(filePath);
@@ -158,7 +169,7 @@ public class EditAccountFragment2 extends BaseFragment{
                 callUploadPictureApi(matchingApi.uploadFile(fileToUpload, filename), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        mListener.close(data);
                     }
                 });
 
@@ -172,23 +183,21 @@ public class EditAccountFragment2 extends BaseFragment{
 
 
     protected void callEditApi() {
-        String name = edt_name.getText().toString();
-        if("".equals(name)){
+        mData.name = edt_name.getText().toString();
+        if("".equals(mData.name)){
             showError("Name is Null");
             return;
         }
         String age_s = (String)spn_age.getSelectedItem();
-        int age = Integer.valueOf(age_s);
+        mData.age = Integer.valueOf(age_s);
         String gender_s = (String) spn_gender.getSelectedItem();
-        int gender = 1;
-        if(gender_s.equals(getResources().getStringArray(R.array.gender)[0])){
-            gender = 0;
+        mData.gender = 1;
+        if(gender_s.equals(getResources().getStringArray(gender)[0])){
+            mData.gender = 0;
         }
         mData.location = (String) spn_location.getSelectedItem();
-        String location = mData.location;
-        String description = edt_description.getText().toString();
-        String hobby = mData.hobby;
-        Observable<ObjectDto> objectDtoObservable = matchingApi.EditUser(name, gender, age, location, hobby, description);
+        mData.description = edt_description.getText().toString();
+        Observable<ObjectDto> objectDtoObservable = matchingApi.EditUser(mData.name, mData.gender, mData.age, mData.location, mData.hobby, mData.description);
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto>(this.getActivity(), true) {
             @Override
             protected void onDataError(ObjectDto events) {
@@ -208,8 +217,9 @@ public class EditAccountFragment2 extends BaseFragment{
 
     public void finish_ok(){
         backToRoot();
+        mListener.clsee2(mData);
 //        startFragment(new AccountFragment(),true);
-        selectTab(3);
+//        selectTab(3);
     }
     private void setAvt(Intent data){
         Uri selectedImage = data.getData();

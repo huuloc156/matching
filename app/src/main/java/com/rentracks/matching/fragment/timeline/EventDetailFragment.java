@@ -244,4 +244,9 @@ public class EventDetailFragment extends BaseFragment implements ListenerClose {
             }
         });
     }
+
+    @Override
+    public void clsee2(Object Objects) {
+
+    }
 }

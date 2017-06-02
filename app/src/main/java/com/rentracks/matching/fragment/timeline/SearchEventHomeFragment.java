@@ -20,7 +20,6 @@ import com.rentracks.matching.data.api.dto.search.EventSearchItem;
 import com.rentracks.matching.fragment.AbstractPullAndLoadmoreFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
 import com.rentracks.matching.fragment.header.ListenerClose;
-import com.rentracks.matching.fragment.myaccount.EditAccountFragment1;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -90,7 +89,7 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkHeader();
-
+        checkSettingAccount();
     }
 
     @Override
@@ -129,6 +128,11 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
         if(isChange == true) {
             loadData(1);
         }
+    }
+
+    @Override
+    public void clsee2(Object Objects) {
+
     }
 
     protected void callApiTradeSummary(final int page, final int distance, final int limit, final String q) {
@@ -223,10 +227,7 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
     public void checkSettingAccount(){
         if(preferenceData.getUserName().equals(null) ||
                 preferenceData.getUserName().equals("")){
-            EditAccountFragment1 fragment = EditAccountFragment1.getInstance();
-            Bundle bundle = new Bundle();
-            fragment.setArguments(bundle);
-            startFragment(fragment,true);
+            selectTab(3);
         }
     }
 }

@@ -1,9 +1,13 @@
 package com.rentracks.matching.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Editable;
@@ -88,7 +92,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
         setupDrawer();
 
 //        moveToTab(1);
-        initLocation();
+        marshmallowGPSPremissionCheck();
     }
 
     protected int getTabLayoutResId() {
@@ -388,9 +392,79 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
     }
 
     /* get location*/
+    public static int MY_PERMISSION_LOCATION = 1431;
+
+    public boolean checkLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+                //Prompt the user once explanation has been shown
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSION_LOCATION);
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSION_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    private void marshmallowGPSPremissionCheck() {
+
+        if(checkLocationPermission() == true){
+
+            initLocation();
+        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+//                && checkSelfPermission(
+//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                && checkSelfPermission(
+//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            requestPermissions(
+//                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+//                            Manifest.permission.ACCESS_FINE_LOCATION},
+//                    MY_PERMISSION_LOCATION);
+//        } else {
+//            //   gps functions.
+//            initLocation();
+//        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        if (requestCode == MY_PERMISSION_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //  gps functionality
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            initLocation();
+        }
+    }
     // GPSTracker class
     GPSTracker gps;
     public void initLocation(){
+
         // Create class object
         gps = new GPSTracker(MainActivity.this);
         getLocation();

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.rentracks.matching.MainApplication;
 import com.rentracks.matching.R;
@@ -213,5 +214,8 @@ public class BaseActivity extends AppCompatActivity {
             if (subs !=null) subs.unsubscribe();
         }
         super.onDestroy();
+    }
+    protected void showMess(String mess){
+        Toast.makeText(getApplicationContext(), mess, Toast.LENGTH_SHORT).show();
     }
 }

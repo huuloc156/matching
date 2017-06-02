@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:gravity="center"
-        android:text="あなたの投資の総合情報を\n「インベスゲート」" />
+        android:text="Register new account." />
 
     <LinearLayout
         android:layout_width="match_parent"

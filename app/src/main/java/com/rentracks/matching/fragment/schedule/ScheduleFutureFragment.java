@@ -122,6 +122,11 @@ public class ScheduleFutureFragment extends AbstractPullAndLoadmoreFragment impl
         loadData(1);
     }
 
+    @Override
+    public void clsee2(Object Objects) {
+
+    }
+
     protected void callApiTradeSummary(final int page, final int distance, final int limit, final String q) {
 
         Observable<ListDtoData<EventSearchItem>> objectDtoObservable = matchingApi.searchEvent(page, distance, limit, q);

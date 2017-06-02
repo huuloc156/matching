@@ -1,6 +1,11 @@
 package com.rentracks.matching.fragment.myaccount;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +25,7 @@ import com.rentracks.matching.data.api.dto.ObjectDto;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
+import com.rentracks.matching.fragment.header.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -34,7 +40,7 @@ import rx.Observable;
 /**
  * Created by apple on 6/20/16.
  */
-public class AccountFragment extends BaseFragment {
+public class AccountFragment extends BaseFragment implements ListenerClose{
 
     @BindView(R.id.img_fed)
     ImageView imgAvt;
@@ -57,8 +63,9 @@ public class AccountFragment extends BaseFragment {
 
 
     UserItem mData;
+    UserItem mNewData;
     boolean isOwner = true;
-
+    Intent mDataAvt;
     @Override
     public int getHeaderMode() {
         return IHeaderInfo.HEADER_MODE_NORMAL;
@@ -85,14 +92,16 @@ public class AccountFragment extends BaseFragment {
     @Override
     public void onClickHeaderRightButton(View view) {
         super.onClickHeaderRightButton(view);
-
+        clickEditAccount();
+    }
+    private void clickEditAccount(){
         EditAccountFragment1 fragment = EditAccountFragment1.getInstance();
         Bundle bundle = new Bundle();
         bundle.putParcelable("user_data",  mData);
+        fragment.setListenerClose(this);
         fragment.setArguments(bundle);
         startFragment(fragment,true);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,6 +110,9 @@ public class AccountFragment extends BaseFragment {
             mData = (UserItem) args
                     .getParcelable("user_detail");
             isOwner = false;
+        }
+        if(mNewData != null){
+            mData = mNewData;
         }
         return inflater.inflate(R.layout.fragment_myaccount_home, container, false);
     }
@@ -121,6 +133,14 @@ public class AccountFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (edtDescription != null && mData != null){
+            edtDescription.setText(mData.description);
+        }
+    }
+
     protected void callApi() {
         int uid = 0;
         if(mData != null){
@@ -135,8 +155,13 @@ public class AccountFragment extends BaseFragment {
             @Override
             public void onDataSuccess(ObjectDto<UserItem> events) {
                 if(events.data != null){
+
                     mData = events.data;
-                    setUserView();
+                    if(mData.name == null || mData.name.equals("") ){
+                        clickEditAccount();
+                    }else{
+                        setUserView();
+                    }
                 }
             }
         });
@@ -146,33 +171,41 @@ public class AccountFragment extends BaseFragment {
     public void setUserView(){
         setFriendStatus();
         mCustomHeaderText = mData.name;
+        preferenceData.setUserName(mData.name);
         checkHeader();
         txtLocation.setText(mData.location);
         txtAgeGender.setText(mData.age +" Age  /  " + ((mData.gender == 0)? "Male":"Female"));
 
-        String picUrl = CommonUtils.getFullPicUrl(getContext(), mData.getPic());
-        LoadImageUtils.load(getContext(), picUrl)
-                .error(R.mipmap.noimage)
+        if(mDataAvt != null){
+            setAvt(mDataAvt);
+            progressBar.setVisibility(View.GONE);
+        }else {
+            String picUrl = CommonUtils.getFullPicUrl(getContext(), mData.getPic());
+            LoadImageUtils.load(getContext(), picUrl)
+                    .error(R.mipmap.noimage)
 //                .placeholder(R.drawable.bg_circle)
 //                            .resizeDimen(R.dimen.avatar_user_size, R.dimen.avatar_user_size)
 //                            .centerCrop()
-                .fit()
-                .into(imgAvt,new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        progressBar.setVisibility(View.GONE);
-                    }
+                    .fit()
+                    .into(imgAvt, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.GONE);
+                        }
 
-                    @Override
-                    public void onError() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
-
+                        @Override
+                        public void onError() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+        }
         edtDescription.setText(mData.description);
+        edtDescription.invalidate();
         edtDescription.setFocusable(false);
         edtDescription.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
         edtDescription.setClickable(false);
+
+
         int max_col = 4;
         int row_i = 0;
         if(mData.hobby == null){
@@ -251,5 +284,26 @@ public class AccountFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void close(Object listOfObjects) {
+        mDataAvt = (Intent) listOfObjects;
+    }
+
+    @Override
+    public void clsee2(Object Objects) {
+        mNewData = (UserItem) Objects;
+    }
+
+    private void setAvt(Intent data){
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getActivity().getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+        imgAvt.setImageBitmap(BitmapFactory.decodeFile(picturePath));
     }
 }

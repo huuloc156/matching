@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -158,7 +159,12 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logInWithReadPermissions(getActivty(), Arrays.asList("public_profile", "email"));
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                if(accessToken == null) {
+                    LoginManager.getInstance().logInWithReadPermissions(getActivty(), Arrays.asList("public_profile", "email"));
+                }else{
+                    callApiLoginFacebook(accessToken.getToken());
+                }
             }
         });
 

@@ -6,4 +6,5 @@ package com.rentracks.matching.fragment.header;
 
 public interface ListenerClose {
     void close(Object listOfObjects);
+    void clsee2(Object Objects);
 }

@@ -151,6 +151,11 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
         }
     }
 
+    @Override
+    public void clsee2(Object Objects) {
+
+    }
+
     protected void callApiTradeSummary(final int page,
                                        final int distance,
                                        final int limit,

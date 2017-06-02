@@ -87,6 +87,12 @@ public class MakingEventFragment extends BaseFragment implements ListenerClose {
     public void close(Object listOfObjects) {
         newPlace = (PlaceItem) listOfObjects;
     }
+
+    @Override
+    public void clsee2(Object Objects) {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

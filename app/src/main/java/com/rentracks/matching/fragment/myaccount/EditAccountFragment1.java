@@ -16,6 +16,7 @@ import com.rentracks.matching.data.api.dto.ListDtoData;
 import com.rentracks.matching.data.api.dto.user.HobbyItem;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
+import com.rentracks.matching.fragment.header.ListenerClose;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +40,12 @@ public class EditAccountFragment1 extends BaseFragment {
     LinearLayout ll_suggess_hobby;
     @BindView(R.id.ll_hobby_fea1)
     LinearLayout ll_hobby;
+
+    ListenerClose mListener;
+    public void setListenerClose(ListenerClose l){
+        mListener = l;
+    }
+
 
     List<String> hobbies = new ArrayList<>();
     @Override
@@ -100,7 +107,7 @@ public class EditAccountFragment1 extends BaseFragment {
     }
 
     private void addLisHobby(){
-        if(mData.hobby == null){
+        if(mData == null || mData.hobby == null){
             return;
         }
         List<String> hobbies = Arrays.asList(mData.hobby.split("#"));
@@ -146,6 +153,7 @@ public class EditAccountFragment1 extends BaseFragment {
         EditAccountFragment2 fragment = EditAccountFragment2.getInstance();
         Bundle bundle = new Bundle();
         bundle.putParcelable("user_data",  mData);
+        fragment.setListenerClose(mListener);
         fragment.setArguments(bundle);
         startFragment(fragment,true);
 
