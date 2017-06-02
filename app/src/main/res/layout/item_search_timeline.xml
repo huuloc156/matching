@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="7dp"
+    android:background="@drawable/bg_shadow_no_conner">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_content_header"
+        >
+      <include layout="@layout/include_recycleview_header"/>
+    </LinearLayout>
+    <include layout="@layout/row_image_text"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/ll_arrow_forward">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:id="@+id/img_arrow_forward_rit"
+            android:src="@mipmap/forward"/>
+    </LinearLayout>
+
+</RelativeLayout>

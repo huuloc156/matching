@@ -1,0 +1,79 @@
+{
+  "project_info": {
+    "project_number": "817057616557",
+    "project_id": "matching-39679"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817057616557:android:e68a5df36a1fcc37",
+        "android_client_info": {
+          "package_name": "com.rentracks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817057616557-kop07cfloq0lv35mdv4drllbivfcq39i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxHhsCIeXBuqDZ7MLlOlHptkGooIxEmVY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817057616557:android:656b86a58cec2378",
+        "android_client_info": {
+          "package_name": "com.rentracks.matching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817057616557-n9cnbrm1qh6l2l18re4ampc5fs30i0cm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rentracks.matching",
+            "certificate_hash": "9abe9d3ee87a9cc89b716011bad22d8081019306"
+          }
+        },
+        {
+          "client_id": "817057616557-kop07cfloq0lv35mdv4drllbivfcq39i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxHhsCIeXBuqDZ7MLlOlHptkGooIxEmVY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

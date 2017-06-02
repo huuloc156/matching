@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:focusableInTouchMode="true"
+    android:id="@+id/searchView"
+    android:layout_width="match_parent"
+    android:layout_height="53dp"
+    android:background="@color/line_color"
+    >
+    <EditText
+        android:theme="@style/MyEditTextTheme"
+        android:paddingRight="30dp"
+        android:paddingLeft="10dp"
+        android:drawableLeft="@mipmap/search_small_black"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:id="@+id/edt_search_box"
+        android:hint="Search"
+        android:inputType="text"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray_name"
+        android:textSize="20sp"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="@drawable/bg_boder_text_2"/>
+    <ImageView
+        android:padding="3dp"
+        android:visibility="invisible"
+        android:id="@+id/btn_header_delete"
+        android:layout_gravity="right|center_vertical"
+        android:src="@mipmap/popup_incorrect_black"
+        android:layout_width="30dp"
+        android:layout_marginRight="12dp"
+        android:layout_height="30dp" />
+    <View
+        android:clickable="true"
+        android:id="@+id/btn_header_search"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+</FrameLayout>

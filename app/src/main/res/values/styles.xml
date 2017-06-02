@@ -41,5 +41,23 @@
         <item name="android:background">@drawable/background_4</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="row_spinner">
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:padding">20dp</item>
+    </style>
+    <style name="row_spinner_text">
+        <item name="android:textSize">25sp</item>
+    </style>
 
+    <style name="text_1">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/gray_black</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:background">@drawable/bg_boder_text</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
 </resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+
+        <include layout="@layout/image_box"/>
+
+
+        <EditText
+            android:id="@+id/txt_name_fem"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size"
+            android:hint="title"
+            android:singleLine="true" />
+
+        <TextView
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size"
+            android:id="@+id/txt_place_fem"
+            android:hint="[Place] Where do you have this event?" />
+
+        <include layout="@layout/row_spinner"/>
+
+        <TextView
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_size"
+            android:id="@+id/txt_datetime_fem"
+            android:hint="datetime" />
+
+        <EditText
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/txt_description_fem"
+            android:gravity="top"
+            android:hint="Description"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="10dp">
+            <Button
+                android:id="@+id/btn_next_fem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_boder_text"
+                android:text="Next"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

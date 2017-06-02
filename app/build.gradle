@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        mavenCentral()
     }
 
     dependencies {
@@ -9,6 +10,10 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+//google
+apply plugin: 'com.google.gms.google-services'
+
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
     maven {
@@ -16,11 +21,18 @@ repositories {
     }
 }
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
-
+    signingConfigs {
+        config {
+            keyAlias 'matchingappkye'
+            keyPassword 'keymatching'
+            storeFile file('/Users/admin/Documents/Android/matching_android/keystore_tu_tao.jks')
+            storePassword '1@3456'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "com.finatext.investgate"
+        applicationId "com.rentracks.matching"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -35,15 +47,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     apt 'com.google.dagger:dagger-compiler:2.2'
     compile 'com.google.dagger:dagger:2.2'
     provided 'org.glassfish:javax.annotation:10.0-b28'
-
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
@@ -53,9 +65,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
-
     compile 'com.squareup.okhttp:okhttp:2.7.5'
-
     compile 'com.jakewharton:butterknife:8.0.1'
     compile 'com.jakewharton.timber:timber:2.4.2'
     compile 'com.squareup:otto:1.3.8'
@@ -63,8 +73,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true
     }
-
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile project(':libraries:MPChartLib')
     compile 'com.android.support:cardview-v7:23.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile project(':libraries:slideDateTimePicker')
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.android.gms:play-services-auth:9.0.0'
 }

@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_matching">
 
     <LinearLayout
+        android:id="@+id/ll_fragment_custom_button"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
+        android:layout_height="38dp"
         android:gravity="center"
-        android:id="@+id/ll_fragment_custom_button">
+        android:orientation="horizontal"
+        android:layout_marginBottom="3dp"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/btn_swip_left"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.26"
+            android:tag="@string/tag_left"
+            android:background="@mipmap/back"/>
+
+        <Button
+            android:id="@+id/btn_swip_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:tag="@string/tag_title"
+            android:text="@string/title_swip"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/btn_swip_right"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.26"
+            android:tag="@string/tag_right"
+            android:background="@mipmap/forward"/>
 
     </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager_swipe_custom"
         android:layout_width="match_parent"

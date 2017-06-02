@@ -1,0 +1,257 @@
+package com.rentracks.matching.fragment.timeline;
+
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.rentracks.matching.R;
+import com.rentracks.matching.adapter.RecyclerArrayAdapter;
+import com.rentracks.matching.adapter.RecyclerArrayViewHolder;
+import com.rentracks.matching.data.api.ApiSubscriber;
+import com.rentracks.matching.data.api.dto.ListDtoData;
+import com.rentracks.matching.data.api.dto.user.UserItem;
+import com.rentracks.matching.fragment.header.IHeaderInfo;
+import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.fragment.myaccount.AccountFragment;
+import com.rentracks.matching.utils.CommonUtils;
+import com.rentracks.matching.utils.LoadImageUtils;
+import com.squareup.picasso.Callback;
+
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import rx.Observable;
+
+public class SearchUserHomeFragment extends SearchAbstractFragment implements ListenerClose {
+
+    String keySearch = "";
+
+    @Override
+    public int getHeaderMode() {
+        return IHeaderInfo.HEADER_MODE_SEARCH;
+    }
+    @Override
+    protected boolean isShowEndList() {
+        return false;
+    }
+
+    @Override
+    public void onClickHeaderRightButton(View view) {
+        super.onClickHeaderRightButton(view);
+        FilterSearchFragment fragment = (FilterSearchFragment) FilterSearchFragment.getInstance();
+        Bundle bundle = new Bundle();
+        bundle.putString("tab_filter", "user");
+        fragment.setArguments(bundle);
+        fragment.setListenerClose(this);
+        startFragment(fragment,true);
+
+    }
+
+
+    @Override
+    public void SearchAction(String s) {
+        super.SearchAction(s);
+        keySearch = s;
+        if(s != null) {
+            loadData(1);
+        }
+    }
+
+
+    @Override
+    public String getSearchKeyword() {
+        return keySearch;
+    }
+
+    public static Fragment getInstance(){
+        return new SearchUserHomeFragment();
+    }
+
+    SearchEventItemAdapter mAdapter;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        setDivider(false);
+        return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        checkHeader();
+    }
+
+    @Override
+    protected RecyclerArrayAdapter createAdapter() {
+        if(mAdapter == null){
+            mAdapter = new SearchEventItemAdapter();
+        }
+        return mAdapter;
+    }
+
+
+    @Override
+    protected void loadData(final int page) {
+        setUILoading(page);
+        int distance = 10;
+        int limit = 10;
+        int age_from = 1;
+        int age_to = 40;
+        int gender = -1;
+        String filter = preferenceData.getUserFilter("20#Female#18#30");
+        List<String> element = Arrays.asList(filter.split("#"));
+        if(element.size() > 3){
+            distance = Integer.valueOf(element.get(0));
+            if(element.get(1).equals(getResources().getStringArray(R.array.gender_full)[0])){//both
+                gender = -1;
+            }else  if(element.get(1).equals(getResources().getStringArray(R.array.gender_full)[1])){//Male
+                gender = 0;
+            }else{
+                gender = 1;//female
+            }
+            age_from = Integer.valueOf(element.get(2));
+            age_to = Integer.valueOf(element.get(3));
+        }
+        callApiTradeSummary(page, distance, limit, age_from, age_to, gender, keySearch);
+    }
+
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        super.onItemClick(view, position);
+        UserItem item = mAdapter.getItem(position);
+        android.support.v4.app.Fragment fragment = new AccountFragment();
+        Bundle bundle = new Bundle();
+        item.isOwner = false;
+        bundle.putParcelable("user_detail", item);
+        fragment.setArguments(bundle);
+        startFragment(fragment,true);
+    }
+
+    @Override
+    public void close(Object listOfObjects) {
+        boolean isChange = (boolean)listOfObjects;
+        if(isChange == true) {
+//            showMessToast("load new");
+            loadData(1);
+        }else{
+//            showMessToast("no change");
+        }
+    }
+
+    protected void callApiTradeSummary(final int page,
+                                       final int distance,
+                                       final int limit,
+                                       final int age_from,
+                                       final int age_to,
+                                       final int gender,
+                                       final String search) {
+
+        Observable<ListDtoData<UserItem>> objectDtoObservable = matchingApi.searchUser(page, distance, limit, age_from, age_to, gender, search);
+        androidSubcribe(objectDtoObservable, new ApiSubscriber<ListDtoData<UserItem>>(this.getActivity(), true) {
+            @Override
+            protected void onDataError(ListDtoData<UserItem> events) {
+                notifyLoadFail(page);
+            }
+
+            @Override
+            public void onDataSuccess(ListDtoData<UserItem> events) {
+                if(events.data != null){
+                    List<UserItem> items = events.data;
+                    int last_page = page + 1;
+                    if(items.size() < limit){
+                        last_page = page;
+                    }
+                    //step2 notify loaded data
+                    notifyLoaded(page, last_page, items);
+                    //step 3 add data to list
+                    if(items!=null) {
+                        mAdapter.addAll(items);
+                        notifyDataSetChanged();
+                    }else{
+                        notifyLoadFail(page);
+                    }
+
+                }else {
+                    notifyLoadFail(page);
+                }
+            }
+        });
+    }
+
+
+    public static class SearchEventItemAdapter extends RecyclerArrayAdapter<UserItem, SearchEventHomeFragment.SearchItemViewHolder> {
+        @Override
+        public SearchEventHomeFragment.SearchItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_search_timeline, parent, false);
+            return new SearchEventHomeFragment.SearchItemViewHolder(view,onItemRecyclerClick) ;
+        }
+
+        @Override
+        public void onBindViewHolder(final SearchEventHomeFragment.SearchItemViewHolder holder, int position) {
+            UserItem item = getItem(position);
+            if(item.name == null){
+                holder.txtTitle.setText(item.email);
+            }else {
+                holder.txtTitle.setText(item.name);
+            }
+            String gender = holder.txtDescription.getContext().getResources().getStringArray(R.array.gender)[item.gender];
+
+
+            holder.txtDescription.setText(gender + "\n" + item.location);
+            String picUrl = CommonUtils.getFullPicUrl(holder.img_avt.getContext(), item.getPic());
+            LoadImageUtils.load(holder.img_avt.getContext(), picUrl)
+                    .error(R.mipmap.noimage)
+                    .placeholder(R.drawable.bg_circle)
+                    .resizeDimen(R.dimen.avatar_user_size, R.dimen.avatar_user_size)
+                    .centerCrop()
+//                    .centerInside()
+                    .into(holder.img_avt,new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            holder.progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
+        }
+
+
+    }
+
+    public static class SearchItemViewHolder extends RecyclerArrayViewHolder {
+
+        @BindView(R.id.img_rit)
+        ImageView img_avt;
+        @BindView(R.id.txt_top_rit)
+        TextView txtTitle;
+        @BindView(R.id.txt_bottom_rit)
+        TextView txtDescription;
+        @BindView(R.id.progress_rit)
+        ProgressBar progressBar;
+
+        public SearchItemViewHolder(View itemView, OnItemRecyclerClick onItemRecyclerClick) {
+            super(itemView,onItemRecyclerClick);
+            ButterKnife.bind(this, itemView);
+        }
+
+    }
+
+}

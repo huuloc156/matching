@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.finatext.investgate.activity.login.LoginActivity">
+    tools:context="com.rentracks.matching.com.finatext.matching.activity.login.LoginActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -40,8 +40,47 @@
         android:layout_height="wrap_content"
         android:text="Login"
         style="@style/button_round_blue"
-        android:id="@+id/btnLogin"
+        android:id="@+id/btn_Login"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="87dp" />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        style="@style/button_round_blue"
+        android:id="@+id/btnLoginRegister"
+        android:layout_below="@+id/btn_Login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp" />
+
+    <TextView
+        android:id="@+id/txt_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:text="If you forget password"
+        android:layout_below="@+id/btnLoginRegister"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txt_forget_password"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/login_button"/>
+
 </RelativeLayout>

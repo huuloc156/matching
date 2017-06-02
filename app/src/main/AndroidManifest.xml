@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.finatext.investgate">
+    package="com.rentracks.matching">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- [START gcm_permission] -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- [END gcm_permission] -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- get android device id -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
-        android:name=".MainApplication"
+        android:name="com.rentracks.matching.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.rentracks.matching.activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
@@ -34,7 +41,7 @@
         </activity>
         <activity
             android:theme="@style/MainActivityTheme"
-            android:name=".activity.MainActivity">
+            android:name="com.rentracks.matching.activity.MainActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -42,36 +49,32 @@
             <!--</intent-filter>-->
         </activity>
         <activity
-            android:name=".activity.login.RegistrationActivity" >
+            android:name="com.rentracks.matching.activity.login.RegistrationActivity" >
         </activity>
-        <activity
-            android:name=".activity.login.SelectAccountTypeActivity" >
-        </activity>
-        <activity
-            android:name=".activity.login.AddAccountDetailActivity" >
-        </activity>
-        <activity
-            android:name=".activity.login.TutorialActivity" >
-        </activity>
-        <activity
-            android:name=".activity.login.SelectAccountTypeActivity" >
-        </activity>
-        <activity
-            android:name=".activity.login.AddAccountDetailActivity" >
-        </activity>
-        <activity
-            android:name=".activity.login.TutorialActivity" >
-        </activity>
-        <activity
-            android:theme="@style/MainActivityTheme"
-            android:name=".activity.login.FirstStartActivity" >
-        </activity>
+
+
         <!--fabric TODO -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="TODOXXXX" />
 
-        <activity android:name=".activity.login.LoginActivity"></activity>
+        <activity android:name="com.rentracks.matching.activity.login.LoginActivity"></activity>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
