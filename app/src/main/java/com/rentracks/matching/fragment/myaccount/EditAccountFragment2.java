@@ -30,6 +30,9 @@ import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -117,7 +120,12 @@ public class EditAccountFragment2 extends BaseFragment{
         }
 
         /* location */
-
+        ArrayAdapter<String> adapter_countries = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, getCountry());
+        spn_location.setAdapter(adapter_countries);
+        if (!"".equals(mData.location)) {
+            int spinnerPosition = adapter_countries.getPosition(mData.location);
+            spn_location.setSelection(spinnerPosition);
+        }
         edt_description.setText(mData.description);
     }
 
@@ -176,7 +184,8 @@ public class EditAccountFragment2 extends BaseFragment{
         if(gender_s.equals(getResources().getStringArray(R.array.gender)[0])){
             gender = 0;
         }
-        String location = "";
+        mData.location = (String) spn_location.getSelectedItem();
+        String location = mData.location;
         String description = edt_description.getText().toString();
         String hobby = mData.hobby;
         Observable<ObjectDto> objectDtoObservable = matchingApi.EditUser(name, gender, age, location, hobby, description);
@@ -234,5 +243,20 @@ public class EditAccountFragment2 extends BaseFragment{
     }
     public void showError(String msg){
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public ArrayList<String> getCountry(){
+        Locale[] locale = Locale.getAvailableLocales();
+        ArrayList<String> countries = new ArrayList<String>();
+        String country;
+        for( Locale loc : locale ){
+            country = loc.getDisplayCountry();
+            if( country.length() > 0 && !countries.contains(country) ){
+                countries.add( country );
+            }
+        }
+        Collections.sort(countries, String.CASE_INSENSITIVE_ORDER);
+        return countries;
     }
 }
