@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -137,19 +138,27 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 //                }
 //            }
 //        });
+        edtHeaderSearchBox.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.requestFocusFromTouch();
+                return false;
+            }
+        });
         edtHeaderSearchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 String text_search = edtHeaderSearchBox.getText().toString();
-                if(text_search.length() > 0) {
-                    mCurrentHeaderInfo.SearchAction(text_search);
 
-                }
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     if (mCurrentHeaderInfo != null && mCurrentHeaderInfo.getHeaderMode() == IHeaderInfo.HEADER_MODE_SEARCH) {
                         //TODO need add search action in header info
-                        mCurrentHeaderInfo.onClickHeaderRightButton(null);
+//                        mCurrentHeaderInfo.onClickHeaderRightButton(null);
+                        if(text_search.length() > 0) {
+                            mCurrentHeaderInfo.SearchAction(text_search);
+
+                        }
                     }
                     return true;
                 }
@@ -157,9 +166,10 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             }
         });
         edtHeaderSearchBox.addTextChangedListener(new TextWatcher() {
+            String beforeTextChange = "";
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                beforeTextChange = charSequence.toString();
             }
 
             @Override
@@ -168,11 +178,18 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
                     btnHeaderDeleteText.setVisibility(View.VISIBLE);
                 } else {
                     btnHeaderDeleteText.setVisibility(View.INVISIBLE);
+                    if(beforeTextChange.equals("") == false){
+                        mCurrentHeaderInfo.SearchAction("");
+                    }
+                }
+                if(charSequence.length() > 0) {
+                    mCurrentHeaderInfo.SearchAction(charSequence.toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
     }

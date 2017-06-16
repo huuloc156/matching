@@ -33,9 +33,12 @@ import rx.Observable;
 
 public class GroupChatFragment extends AbstractPullAndLoadmoreFragment implements ListenerClose{
 
+    String searchText = null;
+
     public static GroupChatFragment getInstance() {
         return new GroupChatFragment();
     }
+
     @Override
     public int getHeaderRightButtonImageResId() {
         return R.mipmap.add;
@@ -94,6 +97,7 @@ public class GroupChatFragment extends AbstractPullAndLoadmoreFragment implement
         }
     }
 
+
     @Override
     protected void loadDirection(boolean is_load_up) {
 
@@ -129,6 +133,8 @@ public class GroupChatFragment extends AbstractPullAndLoadmoreFragment implement
     @Override
     public void SearchAction(String s) {
         super.SearchAction(s);
+        searchText = s;
+        loadData(1);
     }
 
     @Override
@@ -156,7 +162,7 @@ public class GroupChatFragment extends AbstractPullAndLoadmoreFragment implement
     protected void loadData(final int page) {
         Log.d("GroupChatFragment...", "loadData....");
         int limit = 30;
-        callApiGroupList(matchingApi.getListGroup(page, limit), page, limit);
+        callApiGroupList(matchingApi.getListGroup(page, searchText, limit), page, limit);
     }
 
 
@@ -205,7 +211,14 @@ public class GroupChatFragment extends AbstractPullAndLoadmoreFragment implement
         public void onBindViewHolder(final SearchEventHomeFragment.SearchItemViewHolder holder, int position) {
             GroupItem item = getItem(position);
             holder.txtTitle.setText(item.group_name);
-            holder.txtDescription.setText(item.last_name+" : "+item.last_mess);
+            String lastMess = "";
+            if(item.last_name != null){
+                lastMess = item.last_name + " : ";
+            }
+            if(item.last_mess != null){
+                lastMess += (item.last_mess);
+            }
+            holder.txtDescription.setText(lastMess);
             String picUrl = CommonUtils.getFullPicUrl(holder.img_avt.getContext(), item.getPic());
             LoadImageUtils.load(holder.img_avt.getContext(), picUrl)
                     .error(R.mipmap.noimage)

@@ -9,9 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -135,6 +138,32 @@ public class DetailChatFragment extends AbstractPullAndLoadmoreFragment {
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        edtChat.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.requestFocusFromTouch();
+                return false;
+            }
+        });
+        edtChat.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                String text_search = edtChat.getText().toString();
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    if(text_search.length() > 0) {
+                        chatAction(text_search);
+                    }
+//                    return true;
+                }
+                return true;
+            }
+        });
+    }
 
     ChatAdapter mAdapter;
 
@@ -146,6 +175,9 @@ public class DetailChatFragment extends AbstractPullAndLoadmoreFragment {
     @OnClick(R.id.btn_chat)
     public void onClickChat(){
         String mess = edtChat.getText().toString();
+        chatAction(mess);
+    }
+    public void chatAction(String mess){
         if(mess.isEmpty() == false && mAdapter!= null){
             ChatItem item = new ChatItem();
             item.uid = preferenceData.getUserId();

@@ -103,7 +103,7 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
         int age_from = 1;
         int age_to = 40;
         int gender = -1;
-        String filter = preferenceData.getUserFilter("20#Female#18#30");
+        String filter = preferenceData.getUserFilter("20#Both#18#30");
         List<String> element = Arrays.asList(filter.split("#"));
         if(element.size() > 3){
             distance = Integer.valueOf(element.get(0));
