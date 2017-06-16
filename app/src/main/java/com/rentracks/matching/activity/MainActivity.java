@@ -1,6 +1,7 @@
 package com.rentracks.matching.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.rentracks.matching.R;
+import com.rentracks.matching.activity.login.LoginActivity;
 import com.rentracks.matching.adapter.DrawerAdapter;
 import com.rentracks.matching.data.api.ApiSubscriber;
 import com.rentracks.matching.data.api.dto.ObjectDto;
@@ -366,8 +368,11 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position != 0 ) {
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
-                    if(mAdapter.getPosition(position).getItemName().equals("LOG OUT")){
+                    if(mAdapter.getPosition(position-1).getItemName().equals("LOG OUT")){
                         sharePreferenceData.setUserToken(null);
+                        sharePreferenceData.setUserId(0);
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
                     }
                 }
             }
