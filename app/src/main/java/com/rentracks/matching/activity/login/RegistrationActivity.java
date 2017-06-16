@@ -104,6 +104,7 @@ public class RegistrationActivity extends BaseActivity {
                 finish();
             }
 
+
             @Override
             public void onCompleted() {
                 closeDialog();

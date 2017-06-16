@@ -60,10 +60,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
-        android:text="If you forget password"
+        android:drawableLeft="@mipmap/lock_icon"
+        android:drawablePadding="2dp"
+        android:text="@string/if_you_forget_password"
         android:layout_below="@+id/btnLoginRegister"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textSize="18sp"/>
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"

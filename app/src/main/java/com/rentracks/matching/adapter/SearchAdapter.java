@@ -67,16 +67,6 @@ public class SearchAdapter {
 //            }
         }
 
-        public static String convertStyle(String style){
-            if(style.equals("stock") ) {
-                return "株";
-            }else if(style.equals("fx")){
-                return "FX";
-            }else if(style.equals("trust")){
-                return "投信";
-            }
-            return "other";
-        }
 
     }
 

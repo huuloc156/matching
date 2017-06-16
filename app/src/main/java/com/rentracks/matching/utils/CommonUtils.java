@@ -19,6 +19,11 @@ import java.util.List;
  * Created by apple on 11/15/15.
  */
 public final class CommonUtils {
+
+    public static final String BROADCAST_INTANT = "MessFireBaseReceiver";
+    public static final String BROADCAST_EXTRA = "MessData";
+
+
     private CommonUtils() {
 
     }

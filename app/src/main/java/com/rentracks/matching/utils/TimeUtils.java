@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public final class TimeUtils {
 
 
-    public static final SimpleDateFormat FORMAT_DATE_TIME = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.JAPAN);
+    public static final SimpleDateFormat FORMAT_DATE_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
     public static final SimpleDateFormat FORMAT_HOUR = new SimpleDateFormat("HH:mm", Locale.JAPAN);
     public static final SimpleDateFormat FORMAT_DATE = new SimpleDateFormat("dd-MM-yyyy", Locale.JAPAN);
 
@@ -25,14 +26,16 @@ public final class TimeUtils {
 
     public static String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
+        TimeZone japanTimeZone= TimeZone.getTimeZone("Asia/Tokyo");
+        FORMAT_DATE_TIME.setTimeZone(japanTimeZone);
         return FORMAT_DATE_TIME.format(calendar.getTime());
     }
 
-    public static String getCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
-        return format.format(calendar.getTime());
-    }
+//    public static String getCurrentDate() {
+//        Calendar calendar = Calendar.getInstance();
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
+//        return format.format(calendar.getTime());
+//    }
 
     public static Calendar getCalendar(String time) {
         Calendar calendar = Calendar.getInstance();
@@ -119,5 +122,11 @@ public final class TimeUtils {
         else
             return true;
 
+    }
+    public static int compareTwoDay(String date1, String Date2) throws ParseException {
+        Date strDate1 = FORMAT_DATE_TIME.parse(date1);
+        Date strDate2 = FORMAT_DATE_TIME.parse(Date2);
+        int result =  strDate2.compareTo(strDate1);
+        return result;
     }
 }

@@ -17,7 +17,7 @@ import com.rentracks.matching.data.api.dto.search.PlaceItem;
 import com.rentracks.matching.data.api.dto.search.c_geometry;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.fragment.schedule.MakingEventFragment;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
@@ -165,7 +165,12 @@ public class EventDetailFragment extends BaseFragment implements ListenerClose {
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto<Integer>>(this.getActivity(), true) {
             @Override
             protected void onDataError(ObjectDto<Integer> events) {
-
+                /*fail*/
+                if(action == 0) {
+                    changeJoinImage(1-data);
+                }else if(action == 1) {
+                    changeLikeImage(1-data);
+                }
             }
 
             @Override

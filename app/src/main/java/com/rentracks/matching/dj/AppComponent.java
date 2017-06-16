@@ -1,6 +1,7 @@
 package com.rentracks.matching.dj;
 
 import com.rentracks.matching.activity.BaseActivity;
+import com.rentracks.matching.fragment.BaseDialogFragment;
 import com.rentracks.matching.fragment.BaseFragment;
 
 import javax.inject.Singleton;
@@ -16,4 +17,5 @@ public interface AppComponent {
 
     void inject(BaseActivity activity);
     void inject(BaseFragment fragment);
+    void inject(BaseDialogFragment fragment);
 }

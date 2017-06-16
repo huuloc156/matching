@@ -39,6 +39,8 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
     EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
     protected boolean isGrid;
     protected boolean isHaveDivider= true;
+    private  boolean isLoadUpDown = false;
+    protected boolean isReversScroll = false;
 
     public AbstractPullAndLoadmoreFragment() {
         // Required empty public constructor
@@ -64,6 +66,11 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
                 mRecyclerView.addItemDecoration(new DividerDecoration(getActivity()));
             }
         }
+        if(isReversScroll) {
+            layoutManager.setReverseLayout(true);
+            layoutManager.setStackFromEnd(true);
+        }
+
         if(mRecyclerViewHeaderFooterAdapter == null) {
             mRecyclerViewHeaderFooterAdapter = new RecyclerViewHeaderFooterAdapter(layoutManager,createAdapter());
         }
@@ -86,10 +93,10 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
         }
         mRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
         if( isFirstCreate){
+            loadDirection(isLoadUpDown);
             loadData(1);
         }
     }
-
     protected int getEmptyListMessage() {
         return R.string.empty_message;
     }
@@ -107,21 +114,37 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
 
     @NonNull
     protected EndlessRecyclerOnScrollListener endlessListener(final LinearLayoutManager layoutManager) {
+
         return new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    // Scrolling up
+                    isLoadUpDown = true;
+                } else {
+                    // Scrolling down
+                    isLoadUpDown = false;
+                }
+            }
+
             @Override
             public void onLoadMore(final int current_page) {
                 // do something...
                 Timber.tag("EndlessRecyclerOnScrollListener").i( "onloadmore " + current_page);
+                loadDirection(isLoadUpDown);
                 loadData(current_page);
 
             }
         };
     }
+    protected abstract void loadDirection(boolean is_load_up);
 
     protected abstract RecyclerArrayAdapter createAdapter();
 
     @Override
     public void onRefresh() {
+        loadDirection(isLoadUpDown);
         loadData(1);
     }
     public void notifyDataSetChanged(){
@@ -188,7 +211,7 @@ public abstract class AbstractPullAndLoadmoreFragment extends AbstractPullToRefr
     }
 
     protected boolean isShowEndList() {
-        return true;
+        return false;
     }
 
     protected boolean isCheckEmpty() {

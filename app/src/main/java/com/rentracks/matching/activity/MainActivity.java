@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,8 +23,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.rentracks.matching.R;
 import com.rentracks.matching.adapter.DrawerAdapter;
 import com.rentracks.matching.data.api.ApiSubscriber;
@@ -85,7 +86,6 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setupHeader();
 
         addDrawerItems();
@@ -93,6 +93,9 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 
 //        moveToTab(1);
         marshmallowGPSPremissionCheck();
+
+        initFirebaseMess();
+
     }
 
     protected int getTabLayoutResId() {
@@ -346,6 +349,9 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position != 0 ) {
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
+                    if(mAdapter.getPosition(position).getItemName().equals("LOG OUT")){
+                        sharePreferenceData.setUserToken(null);
+                    }
                 }
             }
         });
@@ -433,19 +439,6 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 
             initLocation();
         }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-//                && checkSelfPermission(
-//                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                && checkSelfPermission(
-//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            requestPermissions(
-//                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-//                            Manifest.permission.ACCESS_FINE_LOCATION},
-//                    MY_PERMISSION_LOCATION);
-//        } else {
-//            //   gps functions.
-//            initLocation();
-//        }
     }
 
     @Override
@@ -459,6 +452,13 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
                 return;
             }
             initLocation();
+        }else if(requestCode == MY_PERMISSION_LOCATION){
+            showpopupStatus(false, "Can not get Location", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
     }
     // GPSTracker class
@@ -478,7 +478,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             sharePreferenceData.setLocationUser(latitude, longitude);
             callApiEvent(latitude, longitude);
             // \n is for new line
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
 
             return new LocationData(latitude, longitude);
         } else {
@@ -503,7 +503,60 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             public void onDataSuccess(ObjectDto events) {
 
             }
+
         });
     }
+    protected void callApiUpdateDevice(final String token) {
+
+        Log.d("MainActivity", "Call Api update token: " + token);
+
+        Observable<ObjectDto> objectDtoObservable = matchingApi.updateDeviceToken(token);
+        androidSubcribe(objectDtoObservable, new ApiSubscriber<ObjectDto>(this, true) {
+            @Override
+            protected void onDataError(ObjectDto events) {
+
+            }
+
+            @Override
+            public void onDataSuccess(ObjectDto events) {
+                sharePreferenceData.setSendDeviceToken(true);
+            }
+
+        });
+    }
+
+    void initFirebaseMess(){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            // Create channel to show notifications.
+//            String channelId  = getString(R.string.default_notification_channel_id);
+//            String channelName = getString(R.string.default_notification_channel_name);
+//            NotificationManager notificationManager =
+//                    (NotificationManager) this.getSystemService(NotificationManager.class);
+//
+//            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+//                    channelName, NotificationManager.IMPORTANCE_LOW));
+//        }
+
+
+
+        if(sharePreferenceData.getIsSendDeviceToken() == false) {
+            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+            Log.d("MainActivity", "Refreshed token: " + refreshedToken);
+            if(refreshedToken != null) {
+                callApiUpdateDevice(refreshedToken);
+            }
+        }
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d("", "Key: " + key + " Value: " + value);
+            }
+        }
+
+
+
+    }
+
 
 }

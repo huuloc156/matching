@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:id="@+id/table_layout_add_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:useDefaultMargins="true"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:columnCount="2"
+            android:layout_marginBottom="10dp"
+            >
+
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_add_search_box_include"
+            android:layout_below="@+id/table_layout_add_user">
+            <include
+                layout="@layout/header_search_box" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@+id/linearLayout3"
+            android:layout_below="@+id/ll_add_search_box_include"
+            android:layout_weight="9">
+
+            <include layout="@layout/fragment_pull_to_refresh_load_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:weightSum="2">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:id="@+id/btn_add_user_cancel"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="OK"
+                android:id="@+id/btn_add_user_ok"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

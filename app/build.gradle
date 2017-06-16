@@ -6,6 +6,7 @@ buildscript {
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.20.1'
+        classpath 'com.google.gms:google-services:3.1.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -74,10 +75,17 @@ dependencies {
         transitive = true
     }
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    compile project(':libraries:MPChartLib')
+    //compile project(':libraries:MPChartLib')
     compile 'com.android.support:cardview-v7:23.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(':libraries:slideDateTimePicker')
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.android.gms:play-services-auth:9.0.0'
+
+    compile 'com.google.firebase:firebase-messaging:9.0.2'
+    compile 'com.google.firebase:firebase-core:9.0.2'
+    compile 'com.firebase:firebase-jobdispatcher:0.5.2'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

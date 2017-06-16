@@ -1,5 +1,6 @@
 package com.rentracks.matching.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +12,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
+import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rentracks.matching.MainApplication;
@@ -217,5 +222,36 @@ public class BaseActivity extends AppCompatActivity {
     }
     protected void showMess(String mess){
         Toast.makeText(getApplicationContext(), mess, Toast.LENGTH_SHORT).show();
+    }
+    public void showpopupStatus(final boolean status, String content, final View.OnClickListener onClickPositiveButton) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.popup_status);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_bg);
+        dialog.setCancelable(false);
+        TextView txtSuccess = (TextView) dialog.findViewById(R.id.txt_popup_status_success);
+        TextView txtError = (TextView) dialog.findViewById(R.id.txt_popup_status_error);
+        Button btnOK = (Button) dialog.findViewById(R.id.btn_popup_status_ok);
+        if (status == true) {
+            if (content != null) {
+                txtSuccess.setText(content);
+            }
+            txtError.setVisibility(View.GONE);
+        } else {
+            if (content != null) {
+                txtError.setText(content);
+            }
+            txtSuccess.setVisibility(View.GONE);
+        }
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (onClickPositiveButton != null) {
+                    onClickPositiveButton.onClick(v);
+                }
+            }
+        });
+        dialog.show();
     }
 }

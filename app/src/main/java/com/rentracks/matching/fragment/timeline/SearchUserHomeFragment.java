@@ -7,19 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.rentracks.matching.R;
 import com.rentracks.matching.adapter.RecyclerArrayAdapter;
-import com.rentracks.matching.adapter.RecyclerArrayViewHolder;
 import com.rentracks.matching.data.api.ApiSubscriber;
 import com.rentracks.matching.data.api.dto.ListDtoData;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
 import com.rentracks.matching.fragment.myaccount.AccountFragment;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -27,8 +23,6 @@ import com.squareup.picasso.Callback;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Observable;
 
 public class SearchUserHomeFragment extends SearchAbstractFragment implements ListenerClose {
@@ -76,7 +70,7 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
         return new SearchUserHomeFragment();
     }
 
-    SearchEventItemAdapter mAdapter;
+    SearchUserItemAdapter mAdapter;
 
 
     @Override
@@ -95,7 +89,7 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
     @Override
     protected RecyclerArrayAdapter createAdapter() {
         if(mAdapter == null){
-            mAdapter = new SearchEventItemAdapter();
+            mAdapter = new SearchUserItemAdapter();
         }
         return mAdapter;
     }
@@ -104,7 +98,7 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
     @Override
     protected void loadData(final int page) {
         setUILoading(page);
-        int distance = 10;
+        int distance = 20;
         int limit = 10;
         int age_from = 1;
         int age_to = 40;
@@ -197,7 +191,11 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
     }
 
 
-    public static class SearchEventItemAdapter extends RecyclerArrayAdapter<UserItem, SearchEventHomeFragment.SearchItemViewHolder> {
+    public static class SearchUserItemAdapter extends RecyclerArrayAdapter<UserItem, SearchEventHomeFragment.SearchItemViewHolder> {
+        boolean notshowArrow = false;
+        public void setNotshowArrow(boolean is){
+            notshowArrow = is;
+        }
         @Override
         public SearchEventHomeFragment.SearchItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -213,15 +211,22 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
             }else {
                 holder.txtTitle.setText(item.name);
             }
+            int avt_size = R.dimen.avatar_user_size;
             String gender = holder.txtDescription.getContext().getResources().getStringArray(R.array.gender)[item.gender];
-
+            if(notshowArrow == true){
+                holder.imgArrow.setVisibility(View.GONE);
+                avt_size = R.dimen.avatar_user_small_size;
+                holder.txtDescription.setVisibility(View.GONE);
+                holder.img_avt.getLayoutParams().height = 80;
+                holder.img_avt.getLayoutParams().width = 80;
+            }
 
             holder.txtDescription.setText(gender + "\n" + item.location);
             String picUrl = CommonUtils.getFullPicUrl(holder.img_avt.getContext(), item.getPic());
             LoadImageUtils.load(holder.img_avt.getContext(), picUrl)
                     .error(R.mipmap.noimage)
                     .placeholder(R.drawable.bg_circle)
-                    .resizeDimen(R.dimen.avatar_user_size, R.dimen.avatar_user_size)
+                    .resizeDimen(avt_size, avt_size)
                     .centerCrop()
 //                    .centerInside()
                     .into(holder.img_avt,new Callback() {
@@ -241,22 +246,5 @@ public class SearchUserHomeFragment extends SearchAbstractFragment implements Li
 
     }
 
-    public static class SearchItemViewHolder extends RecyclerArrayViewHolder {
-
-        @BindView(R.id.img_rit)
-        ImageView img_avt;
-        @BindView(R.id.txt_top_rit)
-        TextView txtTitle;
-        @BindView(R.id.txt_bottom_rit)
-        TextView txtDescription;
-        @BindView(R.id.progress_rit)
-        ProgressBar progressBar;
-
-        public SearchItemViewHolder(View itemView, OnItemRecyclerClick onItemRecyclerClick) {
-            super(itemView,onItemRecyclerClick);
-            ButterKnife.bind(this, itemView);
-        }
-
-    }
 
 }

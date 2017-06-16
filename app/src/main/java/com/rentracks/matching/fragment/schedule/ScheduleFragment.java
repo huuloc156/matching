@@ -33,10 +33,10 @@ public class ScheduleFragment extends CustomAbstractSwipeFragment implements Vie
     @Override
     protected void initPagerFragment() {
         mCustomHeaderText = getString(R.string.app_name);
-        addFragment("Past", ScheduleFutureFragment.getInstance());
+        addFragment("Past", SchedulePastFragment.getInstance());
         addFragment("Future", ScheduleFutureFragment.getInstance());
-        addFragment("My Owner", ScheduleFutureFragment.getInstance());
-        addFragment("Invite", ScheduleFutureFragment.getInstance());
+        addFragment("My Owner", ScheduleOwnerFragment.getInstance());
+//        addFragment("Invite", ScheduleFutureFragment.getInstance());
 
         mViewPager.addOnPageChangeListener(this);
 

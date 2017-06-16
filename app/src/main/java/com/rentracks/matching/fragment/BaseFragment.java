@@ -1,17 +1,22 @@
 package com.rentracks.matching.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,7 +31,7 @@ import com.rentracks.matching.data.api.dto.ObjectDto;
 import com.rentracks.matching.dj.AppComponent;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
 import com.rentracks.matching.fragment.header.IHeaderStateChange;
-import com.rentracks.matching.fragment.header.OnBackPressListener;
+import com.rentracks.matching.listener.OnBackPressListener;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
@@ -53,14 +58,20 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
     protected String mCustomHeaderText;
     boolean isPause;
     BaseActivity baseActivity;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppComponent appComponent = ((MainApplication) getActivity().getApplicationContext()).getAppComponent();
         appComponent.inject(this);
         mBus.register(this);
+
+
     }
 
+    protected void listenMessage(String messData){
+
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -110,6 +121,7 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
         Timber.tag("kitvs").i(">>++++onResume " + this.getClass().getSimpleName());
 //        mBus.register(this);
         checkHeader();
+
     }
 
     protected void checkHeader() {
@@ -328,10 +340,36 @@ public abstract class BaseFragment extends Fragment implements OnBackPressListen
                 Toast.makeText(getContext(), " upload fail ", Toast.LENGTH_LONG).show();
             }
 
+
             @Override
             public void onDataSuccess(ObjectDto events) {
                 listener.onClick(null);
             }
         });
+    }
+
+    public void showError(String msg){
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+    public void showpopupStatus(final boolean status, String content, final View.OnClickListener onClickPositiveButton) {
+        getMainActivity().showpopupStatus(status, content, onClickPositiveButton);
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+//                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+//            Log.v(TAG,"Permission is granted");
+            return true;
+        }
     }
 }

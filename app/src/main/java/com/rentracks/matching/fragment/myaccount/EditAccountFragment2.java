@@ -25,7 +25,7 @@ import com.rentracks.matching.data.api.dto.ObjectDto;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -153,7 +153,15 @@ public class EditAccountFragment2 extends BaseFragment{
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUEST_GALLERY_CODE && resultCode == Activity.RESULT_OK){
-            uri = data.getData();
+            if(isStoragePermissionGranted() == false){
+                showpopupStatus(false, "can not get Picture permission", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }else {
+                uri = data.getData();
 
 //            if(EasyPermissions.hasPermissions(this, Manifestnifest.permission.READ_EXTERNAL_STORAGE)) {
                 String filePath = getRealPathFromURIPath(uri, getActivity());
@@ -176,6 +184,7 @@ public class EditAccountFragment2 extends BaseFragment{
 //            }else{
 //                EasyPermissions.requestPermissions(this, getString(R.string.read_file), READ_REQUEST_CODE, Manifest.permission.READ_EXTERNAL_STORAGE);
 //            }
+            }
         }
     }
 
@@ -203,6 +212,7 @@ public class EditAccountFragment2 extends BaseFragment{
             protected void onDataError(ObjectDto events) {
                 Toast.makeText(getContext(), " upload fail ", Toast.LENGTH_LONG).show();
             }
+
 
             @Override
             public void onDataSuccess(ObjectDto events) {
@@ -251,9 +261,7 @@ public class EditAccountFragment2 extends BaseFragment{
                     }
                 });
     }
-    public void showError(String msg){
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-    }
+
 
 
     public ArrayList<String> getCountry(){

@@ -134,6 +134,14 @@
     <string name="fb_login_protocol_scheme">fb113706492550751</string>
     <string name="server_client_ID">817057616557-kop07cfloq0lv35mdv4drllbivfcq39i.apps.googleusercontent.com</string>
     <string name="title_edit_account">Edit Account</string>
+    <string name="if_you_forget_password">If you forget password</string>
 
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
 
 </resources>

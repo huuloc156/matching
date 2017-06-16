@@ -1,16 +1,14 @@
 package com.rentracks.matching.data.api;
 
-import com.rentracks.matching.data.api.dto.ListDto;
 import com.rentracks.matching.data.api.dto.ListDtoData;
 import com.rentracks.matching.data.api.dto.ObjectDto;
+import com.rentracks.matching.data.api.dto.chat.ChatItem;
+import com.rentracks.matching.data.api.dto.chat.GroupItem;
 import com.rentracks.matching.data.api.dto.login.GetLoginData;
 import com.rentracks.matching.data.api.dto.login.RegistrationItem;
 import com.rentracks.matching.data.api.dto.search.EventSearchItem;
 import com.rentracks.matching.data.api.dto.search.PlaceItem;
 import com.rentracks.matching.data.api.dto.search.PlaceMapItem;
-import com.rentracks.matching.data.api.dto.search.ProfitLossItem;
-import com.rentracks.matching.data.api.dto.search.ProfitLossYearDetailItem;
-import com.rentracks.matching.data.api.dto.search.TradeEach;
 import com.rentracks.matching.data.api.dto.user.HobbyItem;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 
@@ -30,6 +28,10 @@ import rx.Observable;
  */
 
 public interface MatchingApi {
+
+    @FormUrlEncoded
+    @POST("/matching_app/login.php?action=forget_password")
+    Observable<ObjectDto> forgetMail(@Field("email") String email);
 
     @FormUrlEncoded
     @POST("/matching_app/login.php?action=register")
@@ -55,6 +57,27 @@ public interface MatchingApi {
                                                          @Field("limit") int limit,
                                                          @Field("q") String search_text
     );
+
+    @FormUrlEncoded
+    @POST("/matching_app/event.php?action=list_past")
+    Observable<ListDtoData<EventSearchItem>> pastEvent(@Field("page") int page,
+                                                       @Field("limit") int limit
+    );
+
+
+    @FormUrlEncoded
+    @POST("/matching_app/event.php?action=list_future")
+    Observable<ListDtoData<EventSearchItem>> futureEvent(@Field("page") int page,
+                                                       @Field("limit") int limit
+    );
+
+
+    @FormUrlEncoded
+    @POST("/matching_app/event.php?action=list_owner")
+    Observable<ListDtoData<EventSearchItem>> ownerEvent(@Field("page") int page,
+                                                         @Field("limit") int limit
+    );
+
 
     @FormUrlEncoded
     @POST("/matching_app/picture.php?action=get_event")
@@ -125,6 +148,7 @@ public interface MatchingApi {
                                                       @Field("longitude") Double longitude);
 
 
+
     @GET("https://maps.googleapis.com/maps/api/place/nearbysearch/json")
 //    @GET("https://maps.googleapis.com/maps/api/place/textsearch/json")
     Observable<PlaceMapItem<PlaceItem>> searchPlace(
@@ -181,18 +205,49 @@ public interface MatchingApi {
     Observable<ObjectDto> acceptRequest(@Field("friendid") int uid);
 
 
-
-    @GET("/api/v1/yearly_pl.json")
-    Observable<ListDto<ProfitLossItem>> getTradeSummaryYear();
-
-    @GET("/api/v1/daily_pl_summary.json")
-    Observable<ListDto<EventSearchItem>> getDailyPLSummary(@Query("page") int page);
+    @FormUrlEncoded
+    @POST("/matching_app/user_device.php?action=update")
+    Observable<ObjectDto> updateDeviceToken(@Field("device_token") String device_token);
 
 
 
-    @GET("/api/v1/each_trade.json")
-    Observable<ObjectDto<TradeEach>> getEachTrade(@Query("stock_trade_id") int page);
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=get_list_group")
+    Observable<ListDtoData<GroupItem>> getListGroup(@Field("page") int page,
+                                                    @Field("limit") int limit
+    );
 
-    @GET("/api/v1/yearly_pl_summary.json")
-    Observable<ListDto<ProfitLossYearDetailItem>> getYearlySummary(@Query("year") int year);
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=create_group")
+    Observable<ObjectDto<GroupItem>> createGroup(@Field("group_name") String group_name,
+                                                    @Field("uids") String user_ids
+    );
+
+
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=get_group_detail")
+    Observable<ListDtoData<ChatItem>> getListChat(@Field("group_id") int group_id,
+                                                  @Field("date_time") String date_time,
+                                                  @Field("limit") int limit
+    );
+
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=get_user_chat_detail")
+    Observable<ListDtoData<ChatItem>> getList2UserChat(@Field("uid") int uid,
+                                                  @Field("date_time") String date_time,
+                                                  @Field("limit") int limit
+    );
+
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=send_group")
+    Observable<ObjectDto> sendMessToGroup(@Field("group_id") int group_id,
+                                                  @Field("mess") String mess,
+                                                  @Field("title") String title
+    );
+    @FormUrlEncoded
+    @POST("/matching_app/message.php?action=send_mess")
+    Observable<ObjectDto> sendMessToUser(@Field("uid") int user_id,
+                                          @Field("mess") String mess,
+                                          @Field("title") String title
+    );
 }

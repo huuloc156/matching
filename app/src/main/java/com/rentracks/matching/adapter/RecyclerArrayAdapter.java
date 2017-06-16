@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public abstract class RecyclerArrayAdapter<M, VH extends RecyclerArrayViewHolder>
@@ -19,6 +21,11 @@ public abstract class RecyclerArrayAdapter<M, VH extends RecyclerArrayViewHolder
         setHasStableIds(true);
     }
 
+    public void sort(Comparator<M> t){
+        Collections.sort(items, t);
+//        items.sort(t);
+        notifyDataSetChanged();
+    }
     public void add(M object) {
         items.add(object);
         notifyDataSetChanged();

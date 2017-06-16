@@ -23,6 +23,11 @@ public class SearchAbstractFragment extends AbstractPullAndLoadmoreFragment {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
+    @Override
+    protected void loadDirection(boolean is_load_up) {
+
+    }
+
     SearchAdapter.SearchItemAdapter mAdapter;
 
     @Override

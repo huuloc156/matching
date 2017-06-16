@@ -28,7 +28,7 @@ import com.rentracks.matching.data.api.dto.search.EventSearchItem;
 import com.rentracks.matching.data.api.dto.search.PlaceItem;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.rentracks.matching.utils.TimeUtils;
@@ -254,6 +254,7 @@ public class MakingEventFragment extends BaseFragment implements ListenerClose {
                 showMessToast("create Error");
             }
 
+
             @Override
             public void onDataSuccess(ObjectDto<EventSearchItem> events) {
                 showMessToast("create success");
@@ -274,6 +275,9 @@ public class MakingEventFragment extends BaseFragment implements ListenerClose {
 
     @OnClick(R.id.img_fed)
     public void clickAvt() {
+
+        CommonUtils.verifyStoragePermissions(getActivity());
+
         Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
         openGalleryIntent.setType("image/*");
         startActivityForResult(openGalleryIntent, REQUEST_GALLERY_CODE);

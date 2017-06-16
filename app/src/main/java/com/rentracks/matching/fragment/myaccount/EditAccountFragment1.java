@@ -16,7 +16,7 @@ import com.rentracks.matching.data.api.dto.ListDtoData;
 import com.rentracks.matching.data.api.dto.user.HobbyItem;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 
 import java.util.ArrayList;
 import java.util.Arrays;

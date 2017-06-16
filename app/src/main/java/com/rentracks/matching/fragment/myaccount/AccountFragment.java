@@ -24,8 +24,9 @@ import com.rentracks.matching.data.api.ApiSubscriber;
 import com.rentracks.matching.data.api.dto.ObjectDto;
 import com.rentracks.matching.data.api.dto.user.UserItem;
 import com.rentracks.matching.fragment.BaseFragment;
+import com.rentracks.matching.fragment.groupchat.DetailChatFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -160,6 +161,7 @@ public class AccountFragment extends BaseFragment implements ListenerClose{
                     if(mData.name == null || mData.name.equals("") ){
                         clickEditAccount();
                     }else{
+                        preferenceData.setUserName(mData.name);
                         setUserView();
                     }
                 }
@@ -171,7 +173,7 @@ public class AccountFragment extends BaseFragment implements ListenerClose{
     public void setUserView(){
         setFriendStatus();
         mCustomHeaderText = mData.name;
-        preferenceData.setUserName(mData.name);
+
         checkHeader();
         txtLocation.setText(mData.location);
         txtAgeGender.setText(mData.age +" Age  /  " + ((mData.gender == 0)? "Male":"Female"));
@@ -248,7 +250,12 @@ public class AccountFragment extends BaseFragment implements ListenerClose{
 
     @OnClick(R.id.ll_chat)
     public void clickChat(){
-
+        preferenceData.setLoadGroupChat(true);
+        android.support.v4.app.Fragment fragment = new DetailChatFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user_detail", mData);
+        fragment.setArguments(bundle);
+        startFragment(fragment,true);
     }
     @OnClick(R.id.ll_friend)
     public void clickFriend(){
@@ -278,6 +285,7 @@ public class AccountFragment extends BaseFragment implements ListenerClose{
             protected void onDataError(ObjectDto events) {
 
             }
+
 
             @Override
             public void onDataSuccess(ObjectDto events) {

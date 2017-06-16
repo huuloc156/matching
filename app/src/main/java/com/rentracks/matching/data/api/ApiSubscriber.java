@@ -3,9 +3,11 @@ package com.rentracks.matching.data.api;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.View;
 
 import com.rentracks.matching.BuildConfig;
-import com.rentracks.matching.R;
+import com.rentracks.matching.activity.login.LoginActivity;
 import com.rentracks.matching.data.api.dto.BaseApiDto;
 import com.rentracks.matching.utils.ToastUtils;
 
@@ -53,7 +55,20 @@ public abstract class ApiSubscriber<T extends BaseApiDto> extends Subscriber<T> 
                     try {
                         JSONObject jObjError = new JSONObject(((HttpException) e).response().errorBody().string());
                         String message = jObjError.getString("message");
-                        showUpdateFailedDialog(context, message);
+                        if(jObjError.isNull("data") == false &&
+                                jObjError.getJSONObject("data").get("code").equals(20)){
+                            showUpdateFailedDialog(context, message, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    context.startActivity(new Intent(context, LoginActivity.class));
+                                    context.finish();
+                                }
+                            });
+                        }else{
+                            showUpdateFailedDialog(context, message);
+                            onDataError(null);
+                        }
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     } catch (IOException e1) {
@@ -101,24 +116,18 @@ public abstract class ApiSubscriber<T extends BaseApiDto> extends Subscriber<T> 
 
     public abstract void onDataSuccess(T t);
 
-    public static void showUpdateFailedDialog(Activity activity) {
-        if (activity == null || activity.isFinishing()) return;
-        AlertDialog.Builder dialog = new AlertDialog.Builder(activity)
-                .setMessage(R.string.dialog_network_error_msg)
-                .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-        dialog.show();
-    }
     public static void showUpdateFailedDialog(Activity activity, String msg) {
+        showUpdateFailedDialog(activity, msg, null);
+    }
+    public static void showUpdateFailedDialog(Activity activity, String msg, final View.OnClickListener clickListener){
         if (activity == null || activity.isFinishing()) return;
         AlertDialog.Builder dialog = new AlertDialog.Builder(activity)
                 .setMessage(msg)
                 .setNegativeButton("Close", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
+                        if(clickListener != null) {
+                            clickListener.onClick(null);
+                        }
                     }
                 });
         dialog.show();

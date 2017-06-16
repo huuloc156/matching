@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.rentracks.matching.R;
 import com.rentracks.matching.fragment.BaseFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +65,7 @@ public class FilterSearchFragment extends BaseFragment {
         main_ll.removeAllViews();
 
         if(tabId.equals("user")) {
-            String filter = preferenceData.getUserFilter("20#Female#18#30");
+            String filter = preferenceData.getUserFilter("20#Both#18#30");
             List<String> element = Arrays.asList(filter.split("#"));
             if(element.size() < 4){
                 element = Arrays.asList("20#Female#18#30".split("#"));
@@ -82,7 +82,7 @@ public class FilterSearchFragment extends BaseFragment {
 
 
         }else{
-            String filter = preferenceData.getEventFilter("30#");
+            String filter = preferenceData.getEventFilter("10#");
             List<String> element = Arrays.asList(filter.split("#"));
 
             View distance = createView("Distance", R.array.distance, element.get(0));

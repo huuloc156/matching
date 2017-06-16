@@ -20,7 +20,7 @@ import com.rentracks.matching.data.api.dto.search.PlaceItem;
 import com.rentracks.matching.data.api.dto.search.PlaceMapItem;
 import com.rentracks.matching.fragment.AbstractPullAndLoadmoreFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -80,6 +80,11 @@ public class MapEventPlace extends AbstractPullAndLoadmoreFragment {
     }
 
     @Override
+    protected void loadDirection(boolean is_load_up) {
+
+    }
+
+    @Override
     protected RecyclerArrayAdapter createAdapter() {
         if(mAdapter == null){
             mAdapter = new PlaceMapAdapter();
@@ -117,6 +122,7 @@ public class MapEventPlace extends AbstractPullAndLoadmoreFragment {
             protected void onDataError(PlaceMapItem<PlaceItem> data) {
                 notifyLoadFail(page);
             }
+
 
             @Override
             public void onDataSuccess(PlaceMapItem<PlaceItem> data) {

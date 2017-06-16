@@ -19,7 +19,7 @@ import timber.log.Timber;
 public class SplashActivity extends BaseActivity implements Animation.AnimationListener {
 
     private String token;
-    private String userId;
+    private int userId;
     private View splashView;
 
     @Override
@@ -88,7 +88,7 @@ public class SplashActivity extends BaseActivity implements Animation.AnimationL
     protected void checkStartActivity() {
         if (
                 TextUtils.isEmpty(token)
-//                || TextUtils.isEmpty(userId)
+                || userId == 0
                 ) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();

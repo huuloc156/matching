@@ -26,7 +26,8 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
     List<DrawerItem> drawerItemList;
     int layoutResID;
 
-    public DrawerAdapter(Context context, int layoutResourceID,
+    public
+    DrawerAdapter(Context context, int layoutResourceID,
                          List<DrawerItem> listItems) {
         super(context, layoutResourceID, listItems);
         this.context = context;
@@ -34,7 +35,9 @@ public class DrawerAdapter extends ArrayAdapter<DrawerItem> {
         this.layoutResID = layoutResourceID;
 
     }
-
+    public DrawerItem getPosition(int position){
+        return drawerItemList.get(position);
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub

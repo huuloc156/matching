@@ -4,6 +4,7 @@ package com.rentracks.matching.fragment.timeline;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import com.rentracks.matching.data.api.dto.ListDtoData;
 import com.rentracks.matching.data.api.dto.search.EventSearchItem;
 import com.rentracks.matching.fragment.AbstractPullAndLoadmoreFragment;
 import com.rentracks.matching.fragment.header.IHeaderInfo;
-import com.rentracks.matching.fragment.header.ListenerClose;
+import com.rentracks.matching.listener.ListenerClose;
 import com.rentracks.matching.utils.CommonUtils;
 import com.rentracks.matching.utils.LoadImageUtils;
 import com.squareup.picasso.Callback;
@@ -93,6 +94,11 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
     }
 
     @Override
+    protected void loadDirection(boolean is_load_up) {
+        Log.i("", "loadDireaction "+is_load_up);
+    }
+
+    @Override
     protected RecyclerArrayAdapter createAdapter() {
         if(mAdapter == null){
             mAdapter = new SearchEventItemAdapter();
@@ -106,7 +112,8 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
             setUILoading(page);
             int distance = 10;
             int limit = 10;
-            callApiTradeSummary(page, distance, limit, keySearch);
+            Observable<ListDtoData<EventSearchItem>> objectDtoObservable = matchingApi.searchEvent(page, distance, limit, keySearch);
+            callApiTradeSummary(objectDtoObservable, page, limit);
     }
 
 
@@ -135,9 +142,9 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
 
     }
 
-    protected void callApiTradeSummary(final int page, final int distance, final int limit, final String q) {
+    public void callApiTradeSummary(Observable<ListDtoData<EventSearchItem>> objectDtoObservable, final int page, final int limit) {
 
-        Observable<ListDtoData<EventSearchItem>> objectDtoObservable = matchingApi.searchEvent(page, distance, limit, q);
+
         androidSubcribe(objectDtoObservable, new ApiSubscriber<ListDtoData<EventSearchItem>>(this.getActivity(), true) {
             @Override
             protected void onDataError(ListDtoData<EventSearchItem> events) {
@@ -210,13 +217,15 @@ public class SearchEventHomeFragment extends AbstractPullAndLoadmoreFragment imp
     public static class SearchItemViewHolder extends RecyclerArrayViewHolder {
 
         @BindView(R.id.img_rit)
-        ImageView img_avt;
+        public  ImageView img_avt;
         @BindView(R.id.txt_top_rit)
-        TextView txtTitle;
+        public TextView txtTitle;
         @BindView(R.id.txt_bottom_rit)
-        TextView txtDescription;
+        public TextView txtDescription;
         @BindView(R.id.progress_rit)
-        ProgressBar progressBar;
+        public ProgressBar progressBar;
+        @BindView(R.id.img_arrow_forward_rit)
+        ImageView imgArrow;
 
         public SearchItemViewHolder(View itemView, OnItemRecyclerClick onItemRecyclerClick) {
             super(itemView,onItemRecyclerClick);

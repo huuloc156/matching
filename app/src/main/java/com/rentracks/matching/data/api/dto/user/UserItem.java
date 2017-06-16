@@ -28,6 +28,9 @@ public class UserItem implements Parcelable {
     public String pic;
 
     public boolean isOwner = true;
+
+
+    @SerializedName("uid")
     public int uid;
 
     @SerializedName("is_friend")

@@ -25,21 +25,34 @@ public class SharePreferenceData {
     public final String EVENT_FILTER                      = "EVENT_FILTER";
     public final String LOCATION_USER                      = "LOCATION_USER";
     public final String USER_NAME                      = "USER_NAME";
-//    public final String USER_AGE_TO                      = "USER_AGE_TO";
+    public final String USER_NAME_SOCIAL                      = "USER_NAME_SOCIAL";
+    public final String DEVICE_TOKEN                      = "DEVICE_TOKEN";
+    public final String IS_SEND_DEVICE_TOKEN                      = "IS_SEND_DEVICE_TOKEN";
+    public final String IS_LOAD_GROUP_CHAT                      = "IS_LOAD_GROUP_CHAT";
 //    public final String USER_GENDER                      = "USER_GENDER";
 
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
+
+    private static SharePreferenceData mInstance;
+
     public SharePreferenceData(Context context){
         //TODO
         preferences = context.getSharedPreferences(DEFAULT_NAME, Context.MODE_PRIVATE);
     }
 
-    public String getUserId(){
-        return getString(KEY_IDENTIFY_USER);
+    public static synchronized SharePreferenceData getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new SharePreferenceData(context);
+        }
+        return mInstance;
     }
 
-    public void setUserId(String id){
-       setString(KEY_IDENTIFY_USER,id);
+    public int getUserId(){
+        return getInt(KEY_IDENTIFY_USER);
+    }
+
+    public void setUserId(int id){
+       setInt(KEY_IDENTIFY_USER,id);
     }
 
 
@@ -72,11 +85,41 @@ public class SharePreferenceData {
     public String getLocationUser(){
         return getString(LOCATION_USER);
     }
+
     public void setUserName(String name){
         setString(USER_NAME, name);
     }
     public String getUserName(){
         return getString(USER_NAME);
+    }
+
+    public void setUserNameSocila(String name){
+        setString(USER_NAME_SOCIAL, name);
+    }
+    public String getUserNameSocial(){
+        return getString(USER_NAME_SOCIAL);
+    }
+
+
+    public void saveDeviceToken(String token){
+        setString(DEVICE_TOKEN, token);
+    }
+    public String getDeviceToken(){
+        return getString(DEVICE_TOKEN);
+    }
+
+    public void setSendDeviceToken(boolean is){
+        setBoolean(IS_SEND_DEVICE_TOKEN, is);
+    }
+    public boolean getIsSendDeviceToken(){
+        return getBoolean(IS_SEND_DEVICE_TOKEN);
+    }
+
+    public void setLoadGroupChat(boolean is){
+        setBoolean(IS_LOAD_GROUP_CHAT, is);
+    }
+    public boolean getLoadGroupChat(){
+        return getBoolean(IS_LOAD_GROUP_CHAT);
     }
     ////////////
     /**
