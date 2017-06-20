@@ -88,7 +88,7 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        processIntent(getIntent());
         setupHeader();
 
         addDrawerItems();
@@ -99,6 +99,21 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 
         initFirebaseMess();
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        processIntent(intent);
+    }
+
+    private void processIntent(Intent intent){
+        if(intent.hasExtra("notification_type") == true){
+            int type = intent.getIntExtra("notification_type", 0);
+            if(type == 1){
+                moveToTab(2);
+            }
+        }
     }
 
     protected int getTabLayoutResId() {

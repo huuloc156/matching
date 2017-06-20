@@ -59,7 +59,8 @@
         </activity>
         <activity
             android:theme="@style/MainActivityTheme"
-            android:name="com.rentracks.matching.activity.MainActivity">
+            android:name="com.rentracks.matching.activity.MainActivity"
+            android:launchMode="singleTop">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
