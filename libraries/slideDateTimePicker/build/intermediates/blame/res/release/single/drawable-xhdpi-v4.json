@@ -1,6 +1,10 @@
 [
     {
-        "merged": "D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\selection_divider.9.png",
-        "source": "D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\src\\main\\res\\drawable-xhdpi\\selection_divider.9.png"
+        "merged": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\selection_divider.9.png",
+        "source": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\src\\main\\res\\drawable-xhdpi\\selection_divider.9.png"
+    },
+    {
+        "merged": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/build/intermediates/res/merged/release/drawable-xhdpi-v4/selection_divider.9.png",
+        "source": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/src/main/res/drawable-xhdpi/selection_divider.9.png"
     }
 ]

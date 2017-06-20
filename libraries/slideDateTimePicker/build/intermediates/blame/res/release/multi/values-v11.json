@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v11\\values-v11.xml",
+        "outputFile": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v11\\values-v11.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 187
                 },
                 "from": {
-                    "file": "D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\src\\main\\res\\values-v11\\styles.xml",
+                    "file": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\src\\main\\res\\values-v11\\styles.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -20,6 +20,32 @@
                         "endLine": 8,
                         "endColumn": 12,
                         "endOffset": 317
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v11/values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/src/main/res/values-v11/styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 177,
+                        "endLine": 8,
+                        "endColumn": 12,
+                        "endOffset": 309
                     }
                 }
             }
