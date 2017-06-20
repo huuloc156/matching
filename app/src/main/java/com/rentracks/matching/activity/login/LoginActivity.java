@@ -142,12 +142,18 @@ public class LoginActivity extends BaseActivity{
         });
     }
     private void handleSignInResult(GoogleSignInResult result) {
-//        GoogleSignInAccount acct = result.getSignInAccount();
-//        String accesstoken;
-//        accesstoken = acct.getIdToken();
-//        sharePreferenceData.setUserNameSocila(acct.getDisplayName());
-//        Log.d("", "accesstoken:" + accesstoken);
-//        callApiLoginGoogle(accesstoken);
+
+        /*if login ok but result.isSuccess = false
+        * get sha1 from android studio
+        * --> add sha-1 tren web firebase
+        * https://console.firebase.google.com/project/matching-39679/settings/general/android:com.rentracks.matching
+        *
+        *
+        *
+            C:\Program Files (x86)\Java\jre1.8.0_131\bin
+
+             keytool -list -v -keystore D:\android\projects\matching\keystore_tu_tao.jks -alias key0
+        * */
 
         Log.d("", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {

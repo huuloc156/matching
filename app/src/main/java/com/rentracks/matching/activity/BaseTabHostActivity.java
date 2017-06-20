@@ -159,7 +159,7 @@ public abstract class BaseTabHostActivity extends BaseActivity {
     private class TabChangedListener implements TabHost.OnTabChangeListener {
         @Override
         public void onTabChanged(String tabId) {
-
+//            mTabHost.clearFocus();
         }
     }
 }

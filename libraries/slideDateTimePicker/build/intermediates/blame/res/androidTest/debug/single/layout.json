@@ -1,7 +1,23 @@
 [
     {
+        "merged": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\slide_date_time_picker.xml",
+        "source": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\bundles\\debug\\res\\layout\\slide_date_time_picker.xml"
+    },
+    {
+        "merged": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\custom_tab.xml",
+        "source": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\bundles\\debug\\res\\layout\\custom_tab.xml"
+    },
+    {
+        "merged": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fragment_time.xml",
+        "source": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\bundles\\debug\\res\\layout\\fragment_time.xml"
+    },
+    {
         "merged": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/build/intermediates/res/merged/androidTest/debug/layout/fragment_time.xml",
         "source": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/build/intermediates/bundles/debug/res/layout/fragment_time.xml"
+    },
+    {
+        "merged": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\fragment_date.xml",
+        "source": "/Users/admin/Documents/Android/matching_android/D:\\android\\projects\\matching\\libraries\\slideDateTimePicker\\build\\intermediates\\bundles\\debug\\res\\layout\\fragment_date.xml"
     },
     {
         "merged": "/Users/admin/Documents/Android/matching_android/libraries/slideDateTimePicker/build/intermediates/res/merged/androidTest/debug/layout/slide_date_time_picker.xml",

@@ -2,12 +2,15 @@ package com.rentracks.matching.fragment.groupchat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,6 +54,9 @@ public class DialogAddGroup extends AbstractPullAndLoadmoreDialogFragment {
     @BindView(R.id.table_layout_add_user)
     GridLayout ll_add_user;
     ListenerClose mListener;
+    @BindView(R.id.edt_search_box)
+    EditText searchBox;
+
 
     public void setListener(ListenerClose l){
         mListener = l;
@@ -63,6 +69,26 @@ public class DialogAddGroup extends AbstractPullAndLoadmoreDialogFragment {
         return inflater.inflate(R.layout.dialog_add_user_to_group, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                loadData(1);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
 
     @Override
     protected RecyclerArrayAdapter createAdapter() {
@@ -76,26 +102,13 @@ public class DialogAddGroup extends AbstractPullAndLoadmoreDialogFragment {
     @Override
     protected void loadData(int page) {
         setUILoading(page);
-        int distance = 20;
+        int distance = 200;
         int limit = 10;
         int age_from = 1;
         int age_to = 40;
         int gender = -1;
-        String filter = preferenceData.getUserFilter("20#Female#18#30");
-        List<String> element = Arrays.asList(filter.split("#"));
-        if(element.size() > 3){
-            distance = Integer.valueOf(element.get(0));
-            if(element.get(1).equals(getResources().getStringArray(R.array.gender_full)[0])){//both
-                gender = -1;
-            }else  if(element.get(1).equals(getResources().getStringArray(R.array.gender_full)[1])){//Male
-                gender = 0;
-            }else{
-                gender = 1;//female
-            }
-            age_from = Integer.valueOf(element.get(2));
-            age_to = Integer.valueOf(element.get(3));
-        }
-        callApiTradeSummary(page, distance, limit, age_from, age_to, gender, "");
+
+        callApiTradeSummary(page, distance, limit, age_from, age_to, gender, searchBox.getText().toString());
     }
 
     @Override
@@ -177,15 +190,17 @@ public class DialogAddGroup extends AbstractPullAndLoadmoreDialogFragment {
             for(int i = 0; i<listGroupUser.size(); i++){
 
                 if(i == listGroupUser.size()- 2) {
-                    groupName += listGroupUser.get(i).name + " and " + listGroupUser.get(i+1).name;
+                    groupName += listGroupUser.get(i).name + "%" + listGroupUser.get(i+1).name;
                     user_ids += listGroupUser.get(i).uid + "," + listGroupUser.get(i+1).uid;
                     break;
                 }
-                if(i > 1 && i < listGroupUser.size() -2) {
-                    groupName += "... ";
-                }else{
-                    groupName += listGroupUser.get(i).name + ", ";
-                }
+//                if(i > 1 && i < listGroupUser.size() -2) {
+//                if(listGroupUser.size() > 2 && i == 2) {
+//                    groupName += "... ";
+//                }else if(listGroupUser.size() > 2 && (i == 0 || i == 1)){
+//                    groupName += listGroupUser.get(i).name + ", ";
+//                }
+                groupName += listGroupUser.get(i).name + "%";
                 user_ids += listGroupUser.get(i).uid + ",";
             }
 

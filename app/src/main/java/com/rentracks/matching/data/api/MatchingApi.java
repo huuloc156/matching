@@ -214,6 +214,7 @@ public interface MatchingApi {
     @FormUrlEncoded
     @POST("/matching_app/message.php?action=get_list_group")
     Observable<ListDtoData<GroupItem>> getListGroup(@Field("page") int page,
+                                                    @Field("q") String search,
                                                     @Field("limit") int limit
     );
 

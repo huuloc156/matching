@@ -22,14 +22,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/relativeLayout">
+
         <EditText
+            android:id="@+id/edt_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/edt_chat"
-            android:hint="Chat"
-            android:layout_toLeftOf="@+id/btn_chat"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/btn_chat"
+            android:hint="Chat"
+            android:singleLine="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

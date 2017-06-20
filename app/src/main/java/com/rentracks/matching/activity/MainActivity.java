@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.rentracks.matching.R;
+import com.rentracks.matching.activity.login.LoginActivity;
 import com.rentracks.matching.adapter.DrawerAdapter;
 import com.rentracks.matching.data.api.ApiSubscriber;
 import com.rentracks.matching.data.api.dto.ObjectDto;
@@ -99,6 +100,21 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        processIntent(intent);
+    }
+
+    private void processIntent(Intent intent){
+        if(intent.hasExtra("notification_type") == true){
+            int type = intent.getIntExtra("notification_type", 0);
+            if(type == 1){
+                moveToTab(2);
+            }
+        }
+    }
+
     protected int getTabLayoutResId() {
         return R.layout.activity_main;
     }
@@ -140,8 +156,8 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
 //        });
         edtHeaderSearchBox.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.requestFocusFromTouch();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.requestFocusFromTouch();
                 return false;
             }
         });
@@ -157,7 +173,11 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
                         (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     if (mCurrentHeaderInfo != null && mCurrentHeaderInfo.getHeaderMode() == IHeaderInfo.HEADER_MODE_SEARCH) {
                         //TODO need add search action in header info
-                        mCurrentHeaderInfo.onClickHeaderRightButton(null);
+//                        mCurrentHeaderInfo.onClickHeaderRightButton(null);
+                        if(text_search.length() > 0) {
+                            mCurrentHeaderInfo.SearchAction(text_search);
+
+                        }
                     }
                     return true;
                 }
@@ -165,9 +185,10 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             }
         });
         edtHeaderSearchBox.addTextChangedListener(new TextWatcher() {
+            String beforeTextChange = "";
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                beforeTextChange = charSequence.toString();
             }
 
             @Override
@@ -176,11 +197,18 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
                     btnHeaderDeleteText.setVisibility(View.VISIBLE);
                 } else {
                     btnHeaderDeleteText.setVisibility(View.INVISIBLE);
+                    if(beforeTextChange.equals("") == false){
+                        mCurrentHeaderInfo.SearchAction("");
+                    }
+                }
+                if(charSequence.length() > 0) {
+                    mCurrentHeaderInfo.SearchAction(charSequence.toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -357,8 +385,11 @@ public class MainActivity extends BaseTabHostActivity implements IHeaderStateCha
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position != 0 ) {
                     mDrawerLayout.closeDrawer(Gravity.LEFT);
-                    if(mAdapter.getPosition(position).getItemName().equals("LOG OUT")){
+                    if(mAdapter.getPosition(position-1).getItemName().equals("LOG OUT")){
                         sharePreferenceData.setUserToken(null);
+                        sharePreferenceData.setUserId(0);
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
                     }
                 }
             }
